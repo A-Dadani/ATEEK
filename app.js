@@ -6,6 +6,8 @@ require("express-async-errors");
 const express = require("express");
 const server = express();
 
+global.__basedir = __dirname;
+
 //routes
 const authRouter = require("./routes/authRoutes.js");
 
@@ -20,7 +22,7 @@ const port = process.env.PORT || 3000;
 const start = async () => {
     try {
         server.listen(port, () => {
-            console.log(`Listening on port ${port}...`);
+            console.log(`--> Listening on port ${port}...`);
         });
     } catch (error) {
         console.log(error);

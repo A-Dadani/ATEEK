@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {singupWithEmail} = require("../controllers/auth.js");
+const {signupWithEmail} = require("../controllers/auth.js");
 
-router.route("/signup").post(singupWithEmail);
+router.route("/signup").post(signupWithEmail);
 
 module.exports = router;
