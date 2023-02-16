@@ -19,7 +19,11 @@ const signupWithEmail = async (req, res) => {
     const lastName = req.body.lastName;
     //-->Pharmacy data
     const pharmacyPhoneNO = req.body.pharmacyPhoneNO;
-    const pharmacyAddress = req.body.pharmacyAddress;
+    const pharmacyAddressLN1 = req.body.pharmacyAddressLN1;
+    const pharmacyAddressLN2 = req.body.pharmacyAddressLN2 || ""; //optional
+    const cityName = req.body.city;
+    const postalCode = req.body.postalCode;
+    const countryCode = req.body.countryCode;
     const latGeoLoc = req.body.latGeoLoc;
     const longGeoLoc = req.body.longGeoLoc;
     const pharmacyName = req.body.pharmacyName;
@@ -42,8 +46,9 @@ const signupWithEmail = async (req, res) => {
         throw new BadRequestError("Password must be between 8 and 20 characters long and contain at least one uppercase and one lowercase letter and one number.");
     }
     //-->other stuff
-    if (!firstName || !lastName || !pharmacyPhoneNO || !pharmacyAddress 
-        || !latGeoLoc || !longGeoLoc || !pharmacyName || (req.files.length != 2)) {
+    if (!firstName || !lastName || !pharmacyPhoneNO
+        || !latGeoLoc || !longGeoLoc || !pharmacyName
+        || !cityName || !postalCode || !countryCode || (req.files.length != 2)) {
         throw new BadRequestError("Please provide all required information.");
     }
     if (!pharmacyPhoneNO.match(regexPhoneNo)) {
@@ -74,9 +79,13 @@ const signupWithEmail = async (req, res) => {
     const pharmacyDocRef = await firestoreLib.addDoc(firestoreLib.collection(db, "pharmacies"), {
         ownerID: user.uid,
         phoneNo: pharmacyPhoneNO,
-        alphaNumAdress: pharmacyAddress,
         geoLoc: coords,
-        name: pharmacyName
+        name: pharmacyName,
+        pharmacyAddressLN1: pharmacyAddressLN1,
+        pharmacyAddressLN2: pharmacyAddressLN2,
+        city: cityName,
+        postalCode: postalCode,
+        countryCode: countryCode
     });
     //---->Personal Data
     const pharmacistDocRef = await firestoreLib.setDoc(firestoreLib.doc(db, "pharmacists", user.uid), {
@@ -106,7 +115,6 @@ const signupWithEmail = async (req, res) => {
             }
         });
     });
-
     res.status(200).json(user);
 };
 
