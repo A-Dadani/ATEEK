@@ -1,14 +1,23 @@
-const fireauthLib = require("firebase/auth");
-const firestoreLib = require("firebase/firestore");
-const {firebase} = require("../config/firebase-config.js");
-const {BadRequestError} = require("../errors");
-const util = require("util");
+const {firebase} = require("../config/firebase-client-config.js");
+const firestoreClientLib = require("firebase/firestore");
+
+const {firebaseAdmin} = require("../config/firebase-config.js");
+const {apiKey} = require("../config/client-config.json");
 
 const fs = require("fs");
 const path = require("path");
 const processReq = require("../middleware/multipart-handler.js");
 
+const util = require("util");
+const multer = require("multer");
+const axios = require("axios");
+
+const errors = require("../errors");
+const httpStatus = require("http-status-codes");
+const session = require("express-session");
+
 const signupWithEmail = async (req, res) => {
+    //Check if user is signed in
     await processReq(req, res);
 
     //Parse data
@@ -37,46 +46,59 @@ const signupWithEmail = async (req, res) => {
 
     //-->Email & password
     if (!email || !password) {
-        throw new BadRequestError("Please provide both an Email and a password.");
+        throw new errors.BadRequestError("Please provide both an Email and a password.");
     }
     if (!email.match(regexEmail)) {
-        throw new BadRequestError("Please provide a valid email adress.");
+        throw new errors.BadRequestError("Please provide a valid email adress.");
     }
     if (!password.match(regexPass)) {
-        throw new BadRequestError("Password must be between 8 and 20 characters long and contain at least one uppercase and one lowercase letter and one number.");
+        throw new errors.BadRequestError("Password must be between 8 and 20 characters long and contain at least one uppercase and one lowercase letter and one number.");
     }
-    //-->other stuff
+    //-->other stuff    
     if (!firstName || !lastName || !pharmacyPhoneNO
         || !latGeoLoc || !longGeoLoc || !pharmacyName
         || !cityName || !postalCode || !countryCode || (req.files.length != 2)) {
-        throw new BadRequestError("Please provide all required information.");
+        throw new errors.BadRequestError("Please provide all required information.");
     }
     if (!pharmacyPhoneNO.match(regexPhoneNo)) {
-        throw new BadRequestError("Please make sure the pharmacy number is in the correct format.");
+        throw new errors.BadRequestError("Please make sure the pharmacy number is in the correct format.");
     }
     if (!firstName.match(regexName)) {
-        throw new BadRequestError("Please make sure the first name is in the correct format.");
+        throw new errors.BadRequestError("Please make sure the first name is in the correct format.");
     }
     if (!lastName.match(regexName)) {
-        throw new BadRequestError("Please make sure the first name is in the correct format.");
+        throw new errors.BadRequestError("Please make sure the first name is in the correct format.");
     }
     if (!latGeoLoc.match(regexGeoLoc) || !longGeoLoc.match(regexGeoLoc)) {
-        throw new BadRequestError("Please make sure the geolocalization is in the correct format.");
+        throw new errors.BadRequestError("Please make sure the geolocalization is in the correct format.");
     }
 
     //Firebase auth & store
-    const auth = fireauthLib.getAuth(firebase); 
-    const db = firestoreLib.getFirestore(firebase);
+    const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
+    const db = firestoreClientLib.getFirestore(firebase);
     //-->Add user to firebase Auth
     const displayName = firstName + " " + lastName;
-    const {user} = await fireauthLib.createUserWithEmailAndPassword(auth, email, password);
-    await fireauthLib.updateProfile(user, {
-        displayName: displayName
+    const user = await fireAdmin.createUser({
+        email,
+        password,
+        displayName
     });
+    //-->Authorizing user
+    //---->Get IDTOKEN
+    const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`, {
+        email: email,
+        password: password,
+        returnSecureToken: true
+    });
+    //---->Create session cookie
+    const expiresIn = 60 * 60 * 24 * 5 * 1000;
+    const sessionCookie = await fireAdmin.createSessionCookie(response.data.idToken, {expiresIn});
+    const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+    res.cookie('session', sessionCookie, options);
     //-->Upload data to firestore
     //---->Pharmacy Data
-    const coords = new firestoreLib.GeoPoint(parseFloat(latGeoLoc), parseFloat(longGeoLoc));
-    const pharmacyDocRef = await firestoreLib.addDoc(firestoreLib.collection(db, "pharmacies"), {
+    const coords = new firestoreClientLib.GeoPoint(parseFloat(latGeoLoc), parseFloat(longGeoLoc));
+    const pharmacyDocRef = await firestoreClientLib.addDoc(firestoreClientLib.collection(db, "pharmacies"), {
         ownerID: user.uid,
         phoneNo: pharmacyPhoneNO,
         geoLoc: coords,
@@ -88,7 +110,7 @@ const signupWithEmail = async (req, res) => {
         countryCode: countryCode
     });
     //---->Personal Data
-    const pharmacistDocRef = await firestoreLib.setDoc(firestoreLib.doc(db, "pharmacists", user.uid), {
+    const pharmacistDocRef = await firestoreClientLib.setDoc(firestoreClientLib.doc(db, "pharmacists", user.uid), {
         pharmacyID: pharmacyDocRef.id,
         firstName: firstName,
         lastName: lastName
@@ -115,9 +137,77 @@ const signupWithEmail = async (req, res) => {
             }
         });
     });
-    res.status(200).json(user);
+    res.status(httpStatus.StatusCodes.CREATED).send(`User registered successfully`);
+};
+
+const signinWithEmail = async (req, res) => {
+    //Check if user is already signed in
+    if (req.cookies && req.cookies.session) {
+        throw new errors.BadRequestError("A user is already signed in.");
+    }
+
+    //Parse data
+    const { email,
+            password } = req.body;
+            
+    //Regex
+    const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
+
+    //-->Check if user already logged in
+    if (!email || !password) {
+        throw new errors.BadRequestError("Please provide both an email and a password.");
+    }
+    if (!email.match(regexEmail)) {
+        throw new errors.BadRequestError("Please provide a valid email.");
+    }
+
+    //Get IDTOKEN
+    const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`, {
+        email: email,
+        password: password,
+        returnSecureToken: true
+    });
+    
+    //Create session cookie
+    const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
+    const expiresIn = 60 * 60 * 24 * 5 * 1000;
+    const sessionCookie = await fireAdmin.createSessionCookie(response.data.idToken, {expiresIn});
+    const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+    res.cookie('session', sessionCookie, options);
+
+    return res.status(httpStatus.StatusCodes.OK).send("User signed in successfully.");
+};
+
+const signOutUser = async (req, res) => {
+    if (!req.cookies || !req.cookies.session) {
+        throw new errors.BadRequestError("No user is signed in.");
+    }
+    const sessionCookie = req.cookies.session;
+    //Firebase auth
+    const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
+    res.clearCookie('session');
+    try {
+        const decodedClaims = await fireAdmin.verifySessionCookie(sessionCookie);
+        fireAdmin.revokeRefreshTokens(decodedClaims.sub);
+        return res.status(httpStatus.StatusCodes.OK).send("User signed out successfully");
+    } catch (err) {
+        return res.status(httpStatus.StatusCodes.BadRequestError).send("Cookie isn\'t valid, no user is signed in.");
+    }
+};
+
+//to do: fix err message
+const getAuthStatus = async (req, res) => {
+    const sessionCookie = req.cookies.session;
+    //Firebase auth
+    const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
+    const decodedClaims = await fireAdmin.verifySessionCookie(sessionCookie, true);
+    res.status(httpStatus.StatusCodes.OK).send("A user is signed in");
 };
 
 module.exports = {
-    signupWithEmail
+    signupWithEmail,
+    signinWithEmail,
+    signOutUser,
+    getAuthStatus
 };

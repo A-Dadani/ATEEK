@@ -6,18 +6,24 @@ require("express-async-errors");
 const express = require("express");
 const server = express();
 
+
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
 global.__basedir = __dirname;
 
 //routes
 const authRouter = require("./routes/authRoutes.js");
 
+server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
+server.use(cookieParser());
 
-server.use(express.static("./public"));
 
 server.use("/api/v0/auth", authRouter);
 
+server.use(express.static("./public"));
 const port = process.env.PORT || 3000;
 const start = async () => {
     try {
