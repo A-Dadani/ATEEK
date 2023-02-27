@@ -14,14 +14,15 @@ global.__basedir = __dirname;
 
 //routes
 const authRouter = require("./routes/authRoutes.js");
+const pharmaciesRouter = require("./routes/pharmacies.js");
 
 server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 server.use(cookieParser());
 
-
 server.use("/api/v0/auth", authRouter);
+server.use("/api/v0/pharmacies", pharmaciesRouter);
 
 server.use(express.static("./public"));
 const port = process.env.PORT || 3000;

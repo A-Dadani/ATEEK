@@ -8,7 +8,6 @@ const fs = require("fs");
 const path = require("path");
 const processReq = require("../middleware/multipart-handler.js");
 
-const util = require("util");
 const multer = require("multer");
 const axios = require("axios");
 
@@ -36,6 +35,7 @@ const signupWithEmail = async (req, res) => {
     const latGeoLoc = req.body.latGeoLoc;
     const longGeoLoc = req.body.longGeoLoc;
     const pharmacyName = req.body.pharmacyName;
+    const isGarde = req.body.isGarde || false; //optional defaults to false
 
     //Check data
     const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -107,7 +107,8 @@ const signupWithEmail = async (req, res) => {
         pharmacyAddressLN2: pharmacyAddressLN2,
         city: cityName,
         postalCode: postalCode,
-        countryCode: countryCode
+        countryCode: countryCode,
+        enGarde: isGarde
     });
     //---->Personal Data
     const pharmacistDocRef = await firestoreClientLib.setDoc(firestoreClientLib.doc(db, "pharmacists", user.uid), {
