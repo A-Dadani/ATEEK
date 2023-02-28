@@ -3,6 +3,7 @@ const {getDistance} = require("../helpers/distance");
 const firestoreClientLib = require("firebase/firestore");
 const {firebase} = require("../config/firebase-client-config.js");
 const httpStatus = require("http-status-codes");
+const { firestore } = require("firebase-admin");
 
 const getNearbyPharmaciesPP = async (req, res) => {
     const geoLong = req.query.long;
@@ -40,9 +41,18 @@ const getAll = async (req, res) => {
     res.status(httpStatus.StatusCodes.OK).json(finalResponse);
 };
 
+const getOne = async (req, res) => {
+    const id = req.query.id;
+    const db = firestoreClientLib.getFirestore(firebase);
+    const docSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacies", id));
+    console.log(docSnapshot.data());
+    res.status(httpStatus.StatusCodes.OK).json(docSnapshot.data());
+};
+
 module.exports = {
     getNearbyPharmaciesPP,
     getNearbyEnGardePP,
     getAllEnGarde,
-    getAll
+    getAll,
+    getOne
 };
