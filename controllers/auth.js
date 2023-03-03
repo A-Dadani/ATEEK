@@ -8,12 +8,10 @@ const fs = require("fs");
 const path = require("path");
 const processReq = require("../middleware/multipart-handler.js");
 
-const multer = require("multer");
 const axios = require("axios");
 
 const errors = require("../errors");
 const httpStatus = require("http-status-codes");
-const session = require("express-session");
 
 const signupWithEmail = async (req, res) => {
     //Check if user is signed in

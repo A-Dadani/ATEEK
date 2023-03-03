@@ -3,8 +3,9 @@ const errors = require("../errors");
 
 const authMiddleware = async (req, res, next) => {
     if (!req.cookies || !req.cookies.session) {
-        throw new errors.UnauthenticatedError("Unauthorized!")
+        throw new errors.UnauthenticatedError("Unauthorized! no cookie is present!")
     }
+    const sessionCookie = req.cookies.session;
     //Firebase auth
     const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
     try {
@@ -20,4 +21,4 @@ const authMiddleware = async (req, res, next) => {
 
 module.exports = {
     authMiddleware
-}
+};
