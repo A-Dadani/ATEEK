@@ -4,9 +4,13 @@ const {firebase} = require("../config/firebase-client-config.js");
 const {firebaseAdmin} = require("../config/firebase-config.js");
 
 const httpStatus = require("http-status-codes");
+const errors = require("../errors/index");
 
 const getOne = async (req, res) => {
     const id = req.uid;
+    if (id != req.params.id) {
+        throw new errors.UnauthenticatedError("Unauthorized!");
+    }
     
     //Firestore
     const db = firestoreClientLib.getFirestore(firebase);
@@ -22,6 +26,9 @@ const getOne = async (req, res) => {
 
 const patchOne = async (req, res) => {
     const id = req.uid;
+    if (id != req.params.id) {
+        throw new errors.UnauthenticatedError("Unauthorized!");
+    }
     const {
         newPassword,
         newFirstName,
