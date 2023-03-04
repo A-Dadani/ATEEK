@@ -1,6 +1,5 @@
 const firestoreClientLib = require("firebase/firestore");
 const {firebase} = require("../config/firebase-client-config.js");
-
 const {firebaseAdmin} = require("../config/firebase-config.js");
 
 const httpStatus = require("http-status-codes");

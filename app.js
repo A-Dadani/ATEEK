@@ -13,7 +13,7 @@ const cors = require("cors");
 global.__basedir = __dirname;
 
 //routes
-const authRouter = require("./routes/authRoutes.js");
+const authRouter = require("./routes/authRoute.js");
 const pharmaciesRouter = require("./routes/pharmacies.js");
 const pharmacistsRouter = require("./routes/pharmacists.js");
 
