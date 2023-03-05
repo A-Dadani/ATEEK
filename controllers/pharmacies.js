@@ -1,6 +1,5 @@
 const firestoreClientLib = require("firebase/firestore");
 const {firebase} = require("../config/firebase-client-config.js");
-const {firebaseAdmin} = require("../config/firebase-config.js");
 
 const errors = require("../errors")
 const httpStatus = require("http-status-codes");
@@ -24,7 +23,7 @@ const getAllEnGarde = async (req, res) => {
     const allPharmsSnapshot = await firestoreClientLib.getDocs(query);
     let finalResponse = [];
     allPharmsSnapshot.forEach((doc) => {
-        finalResponse.push(doc.data());
+        finalResponse.push({ID: doc.id, ...doc.data()});
     });
     res.status(httpStatus.StatusCodes.OK).json(finalResponse);
 };
@@ -36,7 +35,7 @@ const getAll = async (req, res) => {
     const allPharmsSnapshot = await firestoreClientLib.getDocs(query);
     let finalResponse = [];
     allPharmsSnapshot.forEach((doc) => {
-        finalResponse.push(doc.data());
+        finalResponse.push({ID: doc.id, ...doc.data()});
     });
     res.status(httpStatus.StatusCodes.OK).json(finalResponse);
 };
@@ -45,6 +44,9 @@ const getOne = async (req, res) => {
     const id = req.params.id;
     const db = firestoreClientLib.getFirestore(firebase);
     const docSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacies", id));
+    if (!docSnapshot.exists()) {
+        throw new errors.BadRequestError("Requested ID doesn\'t exist.");
+    }
     res.status(httpStatus.StatusCodes.OK).json(docSnapshot.data());
 };
 
@@ -53,9 +55,13 @@ const patchOne = async (req, res) => {
     const db = firestoreClientLib.getFirestore(firebase);
     const uid = req.uid;
     const pid = req.params.id;
-    const userSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacies", pid));
+    const pSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacies", pid));
 
-    if (uid != userSnapshot.data().ownerID) {
+    if (!pSnapshot.exists()) {
+        throw new errors.BadRequestError("Requested ID doesn\'t exist.");
+    }
+
+    if (uid != pSnapshot.data().ownerID) {
         throw new errors.UnauthenticatedError("Unauthorized!");
     }
 

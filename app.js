@@ -16,6 +16,7 @@ global.__basedir = __dirname;
 const authRouter = require("./routes/authRoute.js");
 const pharmaciesRouter = require("./routes/pharmacies.js");
 const pharmacistsRouter = require("./routes/pharmacists.js");
+const productsRouter = require("./routes/products.js");
 
 server.use(cors());
 server.use(express.json());
@@ -25,6 +26,7 @@ server.use(cookieParser());
 server.use("/api/v0/auth", authRouter);
 server.use("/api/v0/pharmacies", pharmaciesRouter);
 server.use("/api/v0/pharmacists", pharmacistsRouter);
+server.use("/api/v0/products", productsRouter);
 
 server.use(express.static("./public"));
 const port = process.env.PORT || 3000;
