@@ -7,17 +7,18 @@ const errors = require("../errors");
 
 const maxSize = 2 * 1024 * 1024;
 const acceptableFileMIMETypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+const acceptableImageMIMETypes = ["image/jpeg", "image/png"];
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    if (!fs.existsSync(__basedir + "/resources/temp/")) {
-      fs.mkdirSync(__basedir + "/resources/temp/", {recursive: true});
-    }
-    cb(null, __basedir + "/resources/temp/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "." + file.mimetype.split('/')[1]);
-  },
+    destination: (req, file, cb) => {
+        if (!fs.existsSync(__basedir + "/resources/temp/")) {
+            fs.mkdirSync(__basedir + "/resources/temp/", {recursive: true});
+        }
+        cb(null, __basedir + "/resources/temp/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "." + file.mimetype.split('/')[1]);
+    },
 });
 
 const fileFilter = function (req, file, cb) {
@@ -30,6 +31,27 @@ const fileFilter = function (req, file, cb) {
     }
 };
 
+const productsStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        if (!fs.existsSync(__basedir + "/resources/temp/")) {
+            fs.mkdirSync(__basedir + "/resources/temp/", {recursive: true});
+        }
+        cb(null, __basedir + "/resources/temp/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "." + file.mimetype.split("/")[1]);
+    }
+});
+
+const productsfileFilter = function (req, file, cb) {
+    if (file.fieldname === "productPicture" 
+        && acceptableImageMIMETypes.includes(file.mimetype)) {
+            cb(null, true);
+    } else {
+        cb(new errors.BadRequestError("File must be JPEG or PNG."));
+    }
+};
+
 const handleRequest = multer({
     storage: storage,
     limits: {
@@ -39,5 +61,20 @@ const handleRequest = multer({
     fileFilter: fileFilter
 }).any();
 
+const handleProductCreation = multer({
+    storage: productsStorage,
+    limits: {
+        fileSize: maxSize,
+        files: 1
+    },
+    fileFilter: productsfileFilter
+}).any();
+
+const processReq = util.promisify(handleRequest);
+const processProduct = util.promisify(handleProductCreation);
+
 // create the exported middleware object
-module.exports = util.promisify(handleRequest);
+module.exports = {
+    processReq,
+    processProduct
+}

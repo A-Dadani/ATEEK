@@ -6,7 +6,7 @@ const {apiKey} = require("../config/client-config.json");
 
 const fs = require("fs");
 const path = require("path");
-const processReq = require("../middleware/multipart-handler.js");
+const {processReq} = require("../middleware/multipart-handler.js");
 
 const axios = require("axios");
 
