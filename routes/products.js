@@ -6,6 +6,6 @@ const controller = require("../controllers/products.js");
 
 router.route("/:id").get(controller.getOne)
                     .patch(authMiddleware, controller.patchOne)
-                    .post(authMiddleware, controller.addOne);
+router.route("/").post(authMiddleware, controller.addOne);
 
 module.exports = router;

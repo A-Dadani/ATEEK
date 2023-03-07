@@ -106,11 +106,25 @@ const patchOne = async (req, res) => {
     res.status(httpStatus.StatusCodes.OK).send("Successfully updated the pharmacy!");
 };
 
+const getAllProducts = async (req, res) => {
+    const pid = req.params.id;
+    const db = firestoreClientLib.getFirestore(firebase);
+    const query = firestoreClientLib.query(firestoreClientLib.collection(db, "products"), 
+                                            firestoreClientLib.where("pharmacyID", "==", pid));
+    const productsSnapshot = await firestoreClientLib.getDocs(query);
+    let finalResponse = [];
+    productsSnapshot.forEach((doc) => {
+        finalResponse.push({productID: doc.id, ...doc.data()});
+    });
+    res.status(httpStatus.StatusCodes.OK).json(finalResponse);
+};
+
 module.exports = {
     getNearbyPharmaciesPP,
     getNearbyEnGardePP,
     getAllEnGarde,
     getAll,
     getOne,
-    patchOne
+    patchOne,
+    getAllProducts
 };

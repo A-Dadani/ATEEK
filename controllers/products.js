@@ -33,9 +33,9 @@ const addOne = async (req, res) => {
         priceDH,
         qty,
         ownerID: uid,
-        prodDocRef: pid
+        pharmacyID: pid
     });
-    res.status(httpStatus.StatusCodes.OK).json({id: prodDocRef.id})
+    res.status(httpStatus.StatusCodes.OK).json({id: prodDocRef.id});
 };
 
 const patchOne = async (req, res) => {
