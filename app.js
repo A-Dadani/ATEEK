@@ -6,9 +6,11 @@ require("express-async-errors");
 const express = require("express");
 const server = express();
 
-
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
+const notFoundMiddleware = require("./middleware/not-found.js");
+const errorHandlerMiddleware = require("./middleware/error-handler.js");
 
 global.__basedir = __dirname;
 
@@ -27,6 +29,9 @@ server.use("/api/v0/auth", authRouter);
 server.use("/api/v0/pharmacies", pharmaciesRouter);
 server.use("/api/v0/pharmacists", pharmacistsRouter);
 server.use("/api/v0/products", productsRouter);
+
+server.use(notFoundMiddleware);
+server.use(errorHandlerMiddleware);
 
 server.use(express.static("./public"));
 const port = process.env.PORT || 3000;
