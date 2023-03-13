@@ -6,10 +6,22 @@ const httpStatus = require("http-status-codes");
 const errors = require("../errors/index");
 
 const getOne = async (req, res) => {
+    const id = req.params.id;
+
+    //Firestore
+    const db = firestoreClientLib.getFirestore(firebase);
+    const docSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacists", id));
+    const info = {
+        firstName,
+        lastName,
+        pharmacyID
+    } = docSnapshot.data();
+    info.ID = id;
+    res.status(httpStatus.StatusCodes.OK).json(info);
+};
+
+const getOnePRVT = async (req, res) => {
     const id = req.uid;
-    if (id != req.params.id) {
-        throw new errors.UnauthenticatedError("Unauthorized!");
-    }
     
     //Firestore
     const db = firestoreClientLib.getFirestore(firebase);
@@ -20,6 +32,7 @@ const getOne = async (req, res) => {
         pharmacyID
     } = docSnapshot.data();
     info.email = req.email;
+    info.ID = id;
     res.status(httpStatus.StatusCodes.OK).json(info);
 };
 
@@ -65,5 +78,6 @@ const patchOne = async (req, res) => {
 
 module.exports = {
     getOne,
-    patchOne
+    patchOne,
+    getOnePRVT
 };

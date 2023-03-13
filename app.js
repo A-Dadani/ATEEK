@@ -22,7 +22,7 @@ const productsRouter = require("./routes/products.js");
 
 server.use(cors());
 server.use(express.json());
-server.use(express.urlencoded({extended: true}));
+server.use(express.urlencoded({ extended: true }));
 server.use(cookieParser());
 
 server.use("/api/v0/auth", authRouter);
@@ -30,8 +30,10 @@ server.use("/api/v0/pharmacies", pharmaciesRouter);
 server.use("/api/v0/pharmacists", pharmacistsRouter);
 server.use("/api/v0/products", productsRouter);
 
-server.use(notFoundMiddleware);
-server.use(errorHandlerMiddleware);
+if (process.env.NODE_ENV === "production") {
+    server.use(notFoundMiddleware);
+    server.use(errorHandlerMiddleware);
+}
 
 server.use(express.static("./public"));
 const port = process.env.PORT || 3000;
