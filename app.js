@@ -46,6 +46,6 @@ const start = async () => {
         console.log(error);
         console.log("Fatal error!");
     }
-}
+};
 
 start();
