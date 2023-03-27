@@ -195,13 +195,22 @@ const signOutUser = async (req, res) => {
     }
 };
 
-//to do: fix err message
 const getAuthStatus = async (req, res) => {
     const sessionCookie = req.cookies.session;
+    if (!sessionCookie) {
+        return res.status(httpStatus.StatusCodes.OK).json({isSignedIn: false, msg: "No user is signed in."});
+    }
     //Firebase auth
     const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
-    const decodedClaims = await fireAdmin.verifySessionCookie(sessionCookie, true);
-    res.status(httpStatus.StatusCodes.OK).send("A user is signed in");
+    try {
+        const decodedClaims = await fireAdmin.verifySessionCookie(sessionCookie, true);
+        res.status(httpStatus.StatusCodes.OK).json({isSignedIn: true, 
+                                                    uid: decodedClaims.user_id,
+                                                    displayName: decodedClaims.name,
+                                                    email: decodedClaims.email});
+    } catch {
+        res.status(httpStatus.StatusCodes.UNAUTHORIZED).json({isSignedIn: false, msg: "Invalid session cookie"});
+    }
 };
 
 module.exports = {
