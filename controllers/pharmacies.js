@@ -23,7 +23,19 @@ const getAllEnGarde = async (req, res) => {
     const allPharmsSnapshot = await firestoreClientLib.getDocs(query);
     let finalResponse = [];
     allPharmsSnapshot.forEach((doc) => {
-        finalResponse.push({ID: doc.id, ...doc.data()});
+        finalResponse.push({ID: doc.id,
+            pharmacyAddressLN1: doc.data().pharmacyAddressLN1,
+            pharmacyAddressLN2: doc.data().pharmacyAddressLN2,
+            ownerID: doc.data().ownerID,
+            enGarde: doc.data().enGarde,
+            city: doc.data().city,
+            name: doc.data().name,
+            phoneNo: doc.data().phoneNo,
+            countryCode: doc.data().countryCode,
+            postalCode: doc.data().postalCode,
+            latitude: doc.data().geoLoc['latitude'],
+            longitude: doc.data().geoLoc['longitude']
+        });
     });
     res.status(httpStatus.StatusCodes.OK).json(finalResponse);
 };
@@ -35,7 +47,19 @@ const getAll = async (req, res) => {
     const allPharmsSnapshot = await firestoreClientLib.getDocs(query);
     let finalResponse = [];
     allPharmsSnapshot.forEach((doc) => {
-        finalResponse.push({ID: doc.id, ...doc.data()});
+        finalResponse.push({ID: doc.id,
+            pharmacyAddressLN1: doc.data().pharmacyAddressLN1,
+            pharmacyAddressLN2: doc.data().pharmacyAddressLN2,
+            ownerID: doc.data().ownerID,
+            enGarde: doc.data().enGarde,
+            city: doc.data().city,
+            name: doc.data().name,
+            phoneNo: doc.data().phoneNo,
+            countryCode: doc.data().countryCode,
+            postalCode: doc.data().postalCode,
+            latitude: doc.data().geoLoc['latitude'],
+            longitude: doc.data().geoLoc['longitude']
+        });
     });
     res.status(httpStatus.StatusCodes.OK).json(finalResponse);
 };
@@ -43,11 +67,23 @@ const getAll = async (req, res) => {
 const getOne = async (req, res) => {
     const id = req.params.id;
     const db = firestoreClientLib.getFirestore(firebase);
-    const docSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacies", id));
-    if (!docSnapshot.exists()) {
+    const doc = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacies", id));
+    if (!doc.exists()) {
         throw new errors.BadRequestError("Requested ID doesn\'t exist.");
     }
-    res.status(httpStatus.StatusCodes.OK).json(docSnapshot.data());
+    res.status(httpStatus.StatusCodes.OK).json({
+        pharmacyAddressLN1: doc.data().pharmacyAddressLN1,
+        pharmacyAddressLN2: doc.data().pharmacyAddressLN2,
+        ownerID: doc.data().ownerID,
+        enGarde: doc.data().enGarde,
+        city: doc.data().city,
+        name: doc.data().name,
+        phoneNo: doc.data().phoneNo,
+        countryCode: doc.data().countryCode,
+        postalCode: doc.data().postalCode,
+        latitude: doc.data().geoLoc['latitude'],
+        longitude: doc.data().geoLoc['longitude']
+    });
 };
 
 const patchOne = async (req, res) => {
