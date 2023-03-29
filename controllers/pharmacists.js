@@ -70,6 +70,7 @@ const patchOne = async (req, res) => {
             lastName: newLastName
         });
     }
+    req.params.id = id;
     getOne(req, res);
 };
 
