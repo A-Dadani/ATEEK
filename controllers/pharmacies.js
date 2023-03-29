@@ -23,7 +23,8 @@ const getAllEnGarde = async (req, res) => {
     const allPharmsSnapshot = await firestoreClientLib.getDocs(query);
     let finalResponse = [];
     allPharmsSnapshot.forEach((doc) => {
-        finalResponse.push({ID: doc.id,
+        finalResponse.push({
+            ID: doc.id,
             pharmacyAddressLN1: doc.data().pharmacyAddressLN1,
             pharmacyAddressLN2: doc.data().pharmacyAddressLN2,
             ownerID: doc.data().ownerID,
@@ -47,7 +48,34 @@ const getAll = async (req, res) => {
     const allPharmsSnapshot = await firestoreClientLib.getDocs(query);
     let finalResponse = [];
     allPharmsSnapshot.forEach((doc) => {
-        finalResponse.push({ID: doc.id,
+        finalResponse.push({
+            ID: doc.id,
+            pharmacyAddressLN1: doc.data().pharmacyAddressLN1,
+            pharmacyAddressLN2: doc.data().pharmacyAddressLN2,
+            ownerID: doc.data().ownerID,
+            enGarde: doc.data().enGarde,
+            city: doc.data().city,
+            name: doc.data().name,
+            phoneNo: doc.data().phoneNo,
+            countryCode: doc.data().countryCode,
+            postalCode: doc.data().postalCode,
+            latitude: doc.data().geoLoc['latitude'],
+            longitude: doc.data().geoLoc['longitude']
+        });
+    });
+    res.status(httpStatus.StatusCodes.OK).json(finalResponse);
+};
+
+const getByCity = async (req, res) => {
+    const city = req.params.city;
+    const db = firestoreClientLib.getFirestore(firebase);
+    const query = firestoreClientLib.query(firestoreClientLib.collection(db, "pharmacies"), 
+                                            firestoreClientLib.where("city", "==", city));
+    const pharmsSnapshot = await firestoreClientLib.getDocs(query);
+    let finalResponse = [];
+    pharmsSnapshot.forEach((doc) => {
+        finalResponse.push({
+            ID: doc.id,
             pharmacyAddressLN1: doc.data().pharmacyAddressLN1,
             pharmacyAddressLN2: doc.data().pharmacyAddressLN2,
             ownerID: doc.data().ownerID,
@@ -160,6 +188,7 @@ module.exports = {
     getNearbyEnGardePP,
     getAllEnGarde,
     getAll,
+    getByCity,
     getOne,
     patchOne,
     getAllProducts
