@@ -38,9 +38,6 @@ const getOnePRVT = async (req, res) => {
 
 const patchOne = async (req, res) => {
     const id = req.uid;
-    if (id != req.params.id) {
-        throw new errors.UnauthenticatedError("Unauthorized!");
-    }
     const {
         newPassword,
         newFirstName,
