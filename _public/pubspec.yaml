@@ -20,12 +20,10 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
-
-  
 dependencies:
   flutter:
     sdk: flutter
-  
+
   carousel_slider: ^4.2.1
   file_picker: ^5.2.5
   link_text: ^0.2.0
@@ -33,15 +31,16 @@ dependencies:
   google_maps_flutter: ^2.2.5
   google_maps_flutter_web: ^0.4.0+6
   http: ^0.13.5
-  
-    
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  
-
   flutter_svg: ^0.19.3
   get: ^3.26.0
-
+  country_state_city_picker: ^1.2.8
+  provider: ^6.0.5
+  flutter_youtube: ^2.0.0
+  location: ^4.4.0
+  webview_flutter: ^3.0.4
+  cupertino_icons: ^1.0.2
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
 
 dev_dependencies:
   flutter_test:
