@@ -184,7 +184,6 @@ const getAllProducts = async (req, res) => {
 };
 
 const getIsGarde = async (req, res) => {
-  console.log("getting is garde");
   //Init firstore
   const db = firestoreClientLib.getFirestore(firebase);
   const uid = req.uid;
@@ -204,6 +203,20 @@ const getIsGarde = async (req, res) => {
     .json({ isGarde: pSnapshot.data().enGarde });
 };
 
+const getOwnID = async (req, res) => {
+    //Init firstore
+    const db = firestoreClientLib.getFirestore(firebase);
+    const uid = req.uid;
+    const uSnapshot = await firestoreClientLib.getDoc(
+      firestoreClientLib.doc(db, "pharmacists", uid)
+    );
+    if (!uSnapshot.exists()) {
+      throw new errors.BadRequestError("Requested ID doesn't exist.");
+    }
+    const pid = uSnapshot.data().pharmacyID;
+    return res.status(httpStatus.StatusCodes.OK).json({ID: pid});
+  };
+
 module.exports = {
     getNearbyPharmaciesPP,
     getNearbyEnGardePP,
@@ -213,5 +226,6 @@ module.exports = {
     getOne,
     patchOne,
     getAllProducts,
-    getIsGarde
+    getIsGarde,
+    getOwnID
 };
