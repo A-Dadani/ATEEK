@@ -12,8 +12,8 @@ const addOne = async (req, res) => {
         description,
         qty
     } = req.body;
-    regexFloat = /^-?\d*\.?\d+$/;
-    regexInt = /^[0-9]+$/;
+    const regexFloat = /^-?\d*\.?\d+$/;
+    const regexInt = /^[0-9]+$/;
     if (!name || !priceDH || !description || !qty) {
         throw new errors.BadRequestError("Please provide all required info");
     }
