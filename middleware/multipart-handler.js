@@ -77,4 +77,4 @@ const processProduct = util.promisify(handleProductCreation);
 module.exports = {
     processReq,
     processProduct
-}
+};
