@@ -2,33 +2,42 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+
+
 import 'package:news/responsive.dart';
 import 'package:news/screens/singnup_screen.dart';
 import '../constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+
+import '../profile/home.dart';
+import '../profile/main.dart';
 
 
   
-Future<Album> createAlbum(String email, String password) async {
-  var URL;
-  final http.Response response = await http.post(
-    Uri.parse('$URL/api/v0/auth/signin'),
-    body: jsonEncode(<String, dynamic>{
-      'email': email,
-      'password': password
-
-    }),
-  );
+Future<void> createAlbum(String email, dynamic password) async {
+  Response response;
  
-  if (response.statusCode == 201) {
-    return Album.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to create album.');
-  }
+  Dio dio = Dio();
+  var URL ="https://prairie-lying-bass.glitch.me";
+  // response = await dio.get("$URL/api/v0/auth/authStatus");
+  // print("Response :: ${response.headers.toString()}");
+ try {
+  // First request, and save cookies (CookieManager do it).
+  response = await dio.post("$URL/api/v0/auth/signin", data: {"email": email, "password": password});
+  print("post response is $response");
+  // authStatus = await dio.get("$URL/api/v0/auth/authStatus");
+  // print("get response $authStatus");
+  //response = await dio.get("https://google.com/");
+  //print("google response is $response");
+ } catch (err) {
+  print("exception caught on line 22 - 29 : $err");
+ }
 }
- 
+
+
 class Album {
-  final dynamic password;
+  final String password;
   final String email;
  
   Album({ this.password, this.email});
@@ -146,7 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   text: 'Sign in to your account',
                                   style: TextStyle(fontWeight: FontWeight.w600,
                                   decorationColor: kPrimaryColor,
-                                  fontSize: 30.0,
+                                  color: kDarkBlackColor,
+                                  fontSize: Responsive.isDesktop(context)? 30.0: 20,
                                   fontFamily: 'assets/fonts/Raleway-SemiBold.ttf')
                                 )
                               ])),
@@ -249,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 flex:1,
                                 child: SizedBox(
                                   child: Container(
-                                    margin:Responsive.isMobile(context)?  EdgeInsets.only(left: width*0.20): Responsive.isTablet(context)? EdgeInsets.only(left: width*0.30): EdgeInsets.only(left: width*0.12),
+                                    margin:Responsive.isMobile(context)?  EdgeInsets.only(left: width*0.15): Responsive.isTablet(context)? EdgeInsets.only(left: width*0.30): EdgeInsets.only(left: width*0.12),
                                     child: Row(children: [
                                     RichText(text: TextSpan(
                                       text: "Don't have an account?",
@@ -294,12 +304,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                            RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(50.0),
+                                                    
                                                     )
                                                   )
                                     ),
                                                       onPressed: () {
-                                                         setState(() {
-                                                           createAlbum(emailController.text.toString(), passwordController.text.toString());
+                                                         setState(() async{
+                                                          await createAlbum(emailController.text.toString(), passwordController.text.toString());
+                                                          Navigator.push(
+                                                          context,
+                                                        MaterialPageRoute(builder: (context) =>  MyApp())); //pushReplacementNamed
                                                         });
                                                       },
                                                       child: Text(
@@ -324,4 +338,15 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  void _submitForm() {
+    if (_formKey.currentState.validate()) {
+
+      // TODO: Implement login process
+      // If login is successful, save token to local storage
+      String token = 'sample_token';
+      Navigator.pushReplacementNamed(context, '/home', arguments: token);
+    }
+  }
+ 
 }

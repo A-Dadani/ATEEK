@@ -14,28 +14,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-           image: DecorationImage(
-            image: AssetImage("assets/images/background11.jpg"),
-            fit: BoxFit.fill,
-        )),
-        child: CarouselDemo()
-
-       
-            
-
-            
+      body: SingleChildScrollView(
         
-
-
-
-
-
-
-
-
-
+        child: Container(
+          decoration: BoxDecoration(
+             image: DecorationImage(
+              image: AssetImage("assets/images/background11.jpg"),
+              fit: BoxFit.fill,
+          )),
+          child: CarouselDemo()
+      
+        ),
       ));
        
    
