@@ -4,6 +4,7 @@ import 'package:news/controllers/MenuController.dart';
 import 'package:news/screens/main/main_screen.dart';
 import 'package:news/screens/contactus/contact_us.dart';
 import '../../../constants.dart';
+import '../../mental_wellness/mental_wellness.dart';
 
 class SideMenu extends StatelessWidget {
   final MenuControllerN _controller = Get.put(MenuControllerN());
@@ -30,17 +31,17 @@ class SideMenu extends StatelessWidget {
                   isActive: index == _controller.selectedIndex,
                   title: _controller.menuItems[index],
                   press: () {
-                    if (index == 1) {
+                    if (index == 0) {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) => MainScreen()));
                     }
-                    if (index == 2) {
+                    if (index == 1) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => ContactUs()));
+                              builder: (BuildContext context) => MainScreenMw()));
                     }
                   },
                 ),

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 //import 'package:news/constants.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_youtube/flutter_youtube.dart';
 import 'package:news/constants.dart';
 import 'package:news/responsive.dart';
-import 'package:news/screens/maps/my_state.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/MenuController.dart';
 //import 'package:news/responsive.dart';
 
 class HomeScreenMw extends StatelessWidget {
   HomeScreenMw({
     Key key,
   }) : super(key: key);
-  final MyController myController = Get.put(MyController());
+  final MenuControllerN myController = Get.put(MenuControllerN());
   final List<String> imagesList = [
     'assets/images/1.png',
     'assets/images/2.png',

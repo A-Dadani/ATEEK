@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/constants.dart';
 import 'package:news/screens/map/maps.dart';
-import 'package:news/screens/maps/my_state.dart';
 import 'package:get/get.dart';
 import 'package:news/responsive.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
@@ -16,6 +15,8 @@ import 'package:news/screens/main/components/side_menu.dart';
 import 'package:news/screens/main/components/header.dart'; */
 
 import 'package:news/screens/pharmacies_list/pharmacies_list.dart';
+
+import '../../controllers/MenuController.dart';
 //import 'package:news/screens/medicines/globals.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen>
   String cityValue;
   Set<Marker> _markers = {};
 
-  final MyController myController = Get.put(MyController());
+  final MenuControllerN myController = Get.put(MenuControllerN());
   AnimationController _animationController;
 
   Animation<Offset> _slideAnimation2;
@@ -132,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!Responsive.isMobile(context)) SizedBox(width: width * 0.06),
+        if (!Responsive.isMobile(context)) SizedBox(width: width * 0.04),
         if (!Responsive.isMobile(context))
           Expanded(
             flex: 1,
@@ -440,7 +441,7 @@ class _HomeScreenState extends State<HomeScreen>
                             )
                           : SizedBox(
                               child: Image.asset('assets/images/Home_pic.png'),
-                              width: width / 2.5,
+                              width: width / 2.7,
                               height: height / 1.1),
                     ],
                   ),
@@ -686,7 +687,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                               SizedBox(
                                                                   height: 20),
                                                               Container(
-                                                                  height: 400,
+                                                                  height: 320,
                                                                   child:
                                                                       MapScreen(
                                                                     selectedCity:

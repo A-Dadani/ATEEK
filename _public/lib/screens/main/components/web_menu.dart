@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:news/controllers/MenuController.dart';
 import 'package:news/screens/main/main_screen.dart';
 import 'package:news/screens/contactus/contact_us.dart';
+import 'package:news/screens/mental_wellness/mental_wellness.dart';
 
 import '../../../constants.dart';
 
@@ -19,17 +20,17 @@ class WebMenu extends StatelessWidget {
             text: _controller.menuItems[index],
             isActive: index == _controller.selectedIndex,
             press: () {
-              if (index == 1) {
+              if (index == 0) {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => MainScreen()));
               }
-              if (index == 2) {
+              if (index == 1) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => ContactUs()));
+                        builder: (BuildContext context) => MainScreenMw()));
               }
             },
           ),

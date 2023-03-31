@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:news/constants.dart';
 
 class MapScreen extends StatefulWidget {
   final String selectedCity;
@@ -151,9 +152,11 @@ class _MapScreenState extends State<MapScreen> {
                         zoom: 12.0)));
               }
             },
+            backgroundColor: kPrimaryColor,
             child: Icon(Icons.my_location),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+                  
         ),
       ],
     );
