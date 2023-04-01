@@ -51,7 +51,7 @@ class _PharmaciesState extends State<Pharmacies> {
   Widget build(BuildContext context) {
     print("BUILDING WIDGET");
     return SidebarContainer(
-      title: 'Nearby Pharmacies',
+      title: RichText(text: TextSpan(text:'Nearby Pharmacies', style: TextStyle(fontSize: 30, color: kDarkBlackColor))),
       child: FutureBuilder(
         future: _retPharmaciesList(),
         builder:

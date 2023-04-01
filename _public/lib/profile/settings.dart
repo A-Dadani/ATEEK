@@ -52,10 +52,7 @@ class Album {
 class Profile extends StatefulWidget {
  
    Profile({superkey});
-
-
-  
-
+   
   @override
   State<Profile> createState() => _ProfileState();
 }
@@ -67,7 +64,7 @@ class _ProfileState extends State<Profile> {
 
   
    
-   
+   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     double height= MediaQuery.of(context).size.height;
@@ -224,7 +221,8 @@ class _ProfileState extends State<Profile> {
                                                controller: newPasswordController,
                                                         keyboardType: TextInputType.visiblePassword,
                                                         textInputAction: TextInputAction.next,
-                                                        cursorColor: Colors.black,
+                                                        cursorColor: kPrimaryColor,
+                                                        obscureText: _isObscure,
                                                         onSaved: (text) {},
                                                         decoration: InputDecoration(
                                                          focusedBorder:const UnderlineInputBorder(
@@ -239,12 +237,27 @@ class _ProfileState extends State<Profile> {
                                                               color: kLabelColor,
                                                               fontSize: 15,
                                                              ),
+                                                              suffixIcon: IconButton(
+                                                              icon: Icon( 
+                                                            _isObscure ? Icons.visibility_off : Icons.visibility), 
+                                                            color: kPrimaryColor,
+                            
+                                                          onPressed: () {
+                                                          setState(() {
+                                                           _isObscure = !_isObscure;
+                                                            });
+                                                          }),
+                      
+                               
+                                                   alignLabelWithHint: false,
                                          
                                                           prefixIcon: const Padding(
                                                             padding: EdgeInsets.all(kDefaultPadding),
                                                             child: Icon(Icons.lock , color: kPrimaryColor, size: 18,),
                                                           ),
                                                         ),
+                                                         
+                                                        
                                                       ),
                                             ),
                                           ),

@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 
                 
                 child: Container(
-                 width: Responsive.isMobile(context)? width *0.75:Responsive.isTablet(context)? width*0.75: width*0.25, 
+                 width: Responsive.isMobile(context)? width *0.75:Responsive.isTablet(context)? width*0.75: width*0.28, 
                  height: Responsive.isMobile(context)? height*0.75 :Responsive.isTablet(context)? height*0.75: height*0.25,
                   margin: Responsive.isMobile(context)? EdgeInsets.all(40):Responsive.isTablet(context)? EdgeInsets.all(30): EdgeInsets.fromLTRB(0, 40, 130, 40),
                   child: Card(
@@ -177,9 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                              keyboardType: TextInputType.emailAddress,
                                              textInputAction: TextInputAction.next,
                                              cursorColor: Colors.black,
-                                             
-                                             
-                                             
+      
                                              onSaved: (email) {},
                                              decoration: InputDecoration(
                                               focusedBorder:UnderlineInputBorder(
@@ -266,6 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: TextStyle(
                                         fontFamily: ('assets/fonts/Raleway-SemiBold.ttf'),
                                         color: kDarkBlackColor,
+                                        fontSize: 15,
                                       ),
                                     )),
                                     Center(
@@ -273,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                          Navigator.push(
                                         context,
                                          MaterialPageRoute(builder: (context) => const SignUpScreen()));
-                                      }, child: Text("Sign up", style: TextStyle(color: Colors.red, fontSize: 15, decoration: TextDecoration.underline,), ), style: ElevatedButton.styleFrom(
+                                      }, child: Text("Sign up", style: TextStyle(color: Colors.red, fontSize: 16, decoration: TextDecoration.underline,), ), style: ElevatedButton.styleFrom(
                                          shadowColor: Colors.transparent,
                                         elevation: 0.0,
                                         backgroundColor: Colors.white,
@@ -292,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: kDefaultPadding),
                               Expanded(
-                                flex:2,
+                                flex:3,
                                 child: Center(
                                   child: SizedBox(
                                                    width: Responsive.isMobile(context)? width*0.6 : Responsive.isTablet(context)? width*0.5: width*0.3,

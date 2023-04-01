@@ -172,8 +172,10 @@ class RrightSideState extends State<RightSide> {
         decoration: const BoxDecoration(
            gradient: LinearGradient(
               colors: <Color>[
-            kBgColor, // yellow sun
-          kLabelColor,
+                kLabelColor,
+            kBgColor,
+             // yellow sun
+          
            // blue sky
     ],
             ),
@@ -223,24 +225,75 @@ class RrightSideState extends State<RightSide> {
       // height: 400,
       child: Column(
         children: [
-           Row(
-             mainAxisAlignment: MainAxisAlignment.end,
-             // ignore: prefer_const_literals_to_create_immutables
-             children: [
-               SizedBox(width: width*0.020),
+           
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                SizedBox(width: 2),
+                Container(
+
+                  child: Responsive.isDesktop(context)? 
+                  Card(
+                
+                      shape: RoundedRectangleBorder(
+                       borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                       
+                      ),
+                      
+                      ),
+                      color: Colors.white,
+                    child: Container(
+                      margin: const EdgeInsets.all(30),
+                      child: Column(
+                        
+                        children: [
+                           Text(
+                                       "🗈 Note!",
+                                       
+                                       style: TextStyle(
+                           
+                           color: Colors.red,
+                           fontSize: Responsive.isDesktop(context)? 24: 15,
+                           fontWeight: FontWeight.bold,
+                           fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
+                                       ),
+                                     ),
+                                     
+                                     Text("You have to set your\n daily night shift status",
+                                     style: TextStyle(
+                           
+                           color: kDarkBlackColor,
+                           fontSize: Responsive.isDesktop(context)? 15: 10,
+                           fontWeight: FontWeight.bold,
+                           fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
+                                       ),
+                                    
+                                       ),
+                        ],
+                      ),
+                    ),
+                  ):Container(),
+                ),
+             
+             
                
-                Text("Night Shift Status ",
-                style: TextStyle(
-                    color: kDarkBlackColor,
-                    fontSize: Responsive.isDesktop(context)? 18: 13,
-                    fontWeight: FontWeight.bold,
-                     fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
-                  ),),
-                  SizedBox(width: width*0.025,),
-                  
-             ],
-           ),
-           FutureBuilder<bool>(
+                SizedBox(width: width*0.4),
+                
+                 Column(
+                   children: [
+                     Text("Night Shift Status ",
+                     style: TextStyle(
+                         color: kDarkBlackColor,
+                         fontSize: Responsive.isDesktop(context)? 18: 13,
+                         fontWeight: FontWeight.bold,
+                          fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
+                       ),),
+                       SizedBox(height: height*0.02,),
+                       
+
+                        FutureBuilder<bool>(
           future: getState(),
     // ignore: missing_return
          builder: (context, snapshot) {
@@ -250,35 +303,35 @@ class RrightSideState extends State<RightSide> {
             } else {
                 bool status = snapshot.data;
                 return Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                        FlutterSwitch(
-                            width: Responsive.isDesktop(context)? width*0.12: width*0.30,
-                            height: Responsive.isDesktop(context)? height*0.065: height*0.055,
-                            valueFontSize: 25.0,
-                            toggleSize: 45.0,
-                            
-                            borderRadius: 30.0,
-                            padding: 8.0,
-                            showOnOff: true,
-                            onToggle: (isGarde) async {
-                                await patchState(isGarde);
-                                setState(() {
-                                  
-                                    status = isGarde;
-                                });
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                            FlutterSwitch(
+                                width: Responsive.isDesktop(context)? width*0.12: width*0.28,
+                                height: Responsive.isDesktop(context)? height*0.07: height*0.08,
+                                valueFontSize: 25.0,
+                                toggleSize: 45.0,
+                                
+                                borderRadius: 30.0,
+                                padding: 8.0,
+                                showOnOff: true,
+                                onToggle: (isGarde) async {
+                                    await patchState(isGarde);
+                                    setState(() {
+                                      
+                                        status = isGarde;
+                                    });
 
-                              
-                            },
-                            value: status,
-                            activeText: Text('On duty', style: TextStyle(fontSize: Responsive.isDesktop(context)?20 : 0),).data,
-                            inactiveText: Text('Inactive', style: TextStyle(fontSize: Responsive.isDesktop(context)?20 : 0),).data,
-                            activeColor: kPrimaryColor,
-                            // thumbColor: Colors.white,
-                            inactiveColor: Colors.red,
-                        ),
-                        SizedBox(width: width*0.020),
-                    ],
+                                  
+                                },
+                                value: status,
+                                activeText: Text('On duty', style: TextStyle(fontSize: Responsive.isDesktop(context)?20 : 0),).data,
+                                inactiveText: Text('Inactive', style: TextStyle(fontSize: Responsive.isDesktop(context)?20 : 0),).data,
+                                activeColor: kPrimaryColor,
+                                // thumbColor: Colors.white,
+                                inactiveColor: Colors.red,
+                            ),
+                            SizedBox(width: width*0.020),
+                        ],
                 );
             }
         } else {
@@ -286,19 +339,20 @@ class RrightSideState extends State<RightSide> {
         }
     },
 ),
-           
+                   ],
+                 ),
+                   
+              ],
+            ),
           
-         
-SizedBox(height: height*0.08,),
-
           
-        
           Container(
             decoration: const BoxDecoration(
            gradient: LinearGradient(
               colors: <Color>[
+                kLabelColor,
             kBgColor, // yellow sun
-          kLabelColor,
+          
            // blue sky
     ],
             ),
@@ -306,22 +360,28 @@ SizedBox(height: height*0.08,),
         ),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             alignment: Alignment.centerLeft,
-            child: Row(
+            
+            child: Column(
               children: [
-                SizedBox(width: 2),
-                Icon(Icons.list_alt_rounded, color: kDarkBlackColor),
-                SizedBox(width: 20),
-               
-                 Text(
-                  "Your Medicines' List",
-                  
-                  style: TextStyle(
-                    
-                    color: kDarkBlackColor,
-                    fontSize: Responsive.isDesktop(context)? 24: 15,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
-                  ),
+                SizedBox(height:height*0.1),
+                Row(
+                  children: [
+                    SizedBox(width: 2),
+                    Icon(Icons.list_alt_rounded, color: kDarkBlackColor),
+                    SizedBox(width: 20),
+                   
+                     Text(
+                      "Your Medicines' List",
+                      
+                      style: TextStyle(
+                        
+                        color: kDarkBlackColor,
+                        fontSize: Responsive.isDesktop(context)? 24: 15,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -360,19 +420,24 @@ SizedBox(height: height*0.08,),
                                 child: Text(
                                   medicine.name,
                                   style: const TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 1.2,
                                   ),
                                 ),
                               ),
                             ),
-                            subtitle: Text(
-                              medicine.qty,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                letterSpacing: 1.2,
-                              ),
+                            subtitle: Row(
+                              children: [
+                                Text("Quantity: "),
+                                Text(
+                                  medicine.qty,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                              ],
                             ),
 
                         ),
@@ -406,6 +471,29 @@ SizedBox(height: height*0.08,),
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              height: height*0.07,
+                              child: ElevatedButton.icon(
+                              onPressed: () {},
+                              icon: Icon(Icons.production_quantity_limits_outlined),
+                              label: Text("Add to Cart"),
+                              
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: kPrimaryColor,
+                              textStyle: TextStyle(fontSize: 15),
+                              
+                              ),
+                            ),
+                            ),
+                             SizedBox(height: height*0.04,),
+
+                          ],
+                        ),
+                        SizedBox(height: height*0.04,),
                       ],
                     )),
               ),
@@ -440,17 +528,17 @@ SizedBox(height: height*0.08,),
       ),
       decoration: const BoxDecoration(
        
-           gradient: LinearGradient(
-              colors: <Color>[
-                kLabelColor,
-            kBgColor, // yellow sun
+    //        gradient: LinearGradient(
+    //           colors: <Color>[
+    //             kLabelColor,
+    //         kBgColor, // yellow sun
           
-           // blue sky
-    ],
-            ),
-          //  color: Color.fromARGB(250, 250, 250, 250),
+    //        // blue sky
+    // ],
+    //         ),
+           
         
-          color: kLabelColor,
+          color: kPrimaryColor,
            borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35)),
            
     // gradient: LinearGradient(
@@ -472,7 +560,7 @@ SizedBox(height: height*0.08,),
                   "Medicine Platform",
                   style: TextStyle(
                     fontSize: Responsive.isDesktop(context)? 30: 20,
-                    color: Colors.red[900],
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'assets/fonts/Raleway-SemiBold.ttf'
                   ),

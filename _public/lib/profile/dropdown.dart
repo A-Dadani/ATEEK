@@ -18,7 +18,7 @@ class SidebarPage extends StatefulWidget {
 class _SidebarPageState extends State<SidebarPage> {
   List<CollapsibleItem> _items = [];
   String _headline = " ";
-  AssetImage _avatarImg = AssetImage('assets/man.png');
+  AssetImage _avatarImg = AssetImage('images/profile.jpg');
 
   @override
   void initState() {
@@ -33,9 +33,11 @@ class _SidebarPageState extends State<SidebarPage> {
         text: 'Your Medecine List',
         icon: Icons.home,
        onPressed: () {
-          Navigator.push(
+         setState(() {
+            Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Home()));
+         });
             // Navigate to Feed page
           },
         isSelected: true,
@@ -46,21 +48,29 @@ class _SidebarPageState extends State<SidebarPage> {
         text: 'Add Medicine',
         icon: Icons.add,
         onPressed: () {
-          Navigator.push(
+         setState(() {
+            Navigator.push(
             context,
             MaterialPageRoute(builder: (context) =>  AddMed()));
+             
+         });
                                       
             },
+            //  isSelected: true,
       ),
       CollapsibleItem(
         text: 'Settings',
         icon: Icons.settings,
          onPressed: () {
-            Navigator.push(
+            setState(() {
+              _headline = 'Settings';
+              Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Sett()));
+            });
                             // Navigate to Feed page
                           },
+                          //  isSelected: true,
       ),
       
       
@@ -82,11 +92,17 @@ class _SidebarPageState extends State<SidebarPage> {
         items: _items,
         collapseOnBodyTap: true,
         avatarImg: _avatarImg,
-        title: 'John Smith',
+        title: 'Lorem IPSUM',
+    //     selectedIconBox: Color(0xff2F4047),
+    // selectedIconColor: Color(0xff4AC6EA),
+    // unselectedIconColor: Color(0xff6A7886),
        
         body: _body(size, context),
         backgroundColor: Colors.black,
-        selectedTextColor: Colors.white,
+        selectedTextColor: kLabelColor,
+        selectedIconBox: Colors.white,
+        selectedIconColor: kLabelColor,
+        unselectedIconColor: Color(0xff6A7886),
         textStyle: const TextStyle(fontSize: 15,),
         titleStyle: const TextStyle(
             fontSize: 20,

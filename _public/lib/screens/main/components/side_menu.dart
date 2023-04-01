@@ -31,6 +31,7 @@ class SideMenu extends StatelessWidget {
                   isActive: index == _controller.selectedIndex,
                   title: _controller.menuItems[index],
                   press: () {
+                    _controller.setMenuIndex(index);
                     if (index == 0) {
                       Navigator.pushReplacement(
                           context,

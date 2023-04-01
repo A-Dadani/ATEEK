@@ -17,14 +17,6 @@ import 'left_side.dart';
 import 'dart:typed_data';
 import 'dart:io';
 
-
-
-
-
-  
-
-
-
 class Album {
   final String name;
   final String description;
@@ -108,13 +100,13 @@ class _AddMedecineState extends State<AddMedecine> {
           SingleChildScrollView(
             child: SizedBox(
               height: Responsive.isDesktop(context)? height*1.2: height*1.4,
-              width: Responsive.isDesktop(context)? width*0.4: width*0.75,
+              width: Responsive.isDesktop(context)? width*0.4: width*0.85,
               child: Card
               (
                 margin: const EdgeInsets.all(40),
                       shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30))
-                  
+
                       ),
                       color: Colors.white,
                 child: Column(children: [

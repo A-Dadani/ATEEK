@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants.dart';
+
 
 class MenuControllerN extends GetxController {
   RxInt _selectedIndex = 0.obs;
@@ -16,5 +18,10 @@ class MenuControllerN extends GetxController {
     } else {
       _scaffoldKey.currentState.openDrawer();
     }
+  }
+
+  void setMenuIndex(int index){
+    _selectedIndex.value = index;
+    
   }
 }

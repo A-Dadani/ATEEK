@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class SidebarContainer extends StatelessWidget {
-  final String title;
+  final RichText title;
   final Widget child;
   const SidebarContainer({
     Key key,
@@ -25,15 +25,10 @@ class SidebarContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: kDarkBlackColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          title,
           SizedBox(height: kDefaultPadding / 2), //10
           child,
+          
         ],
       ),
     );

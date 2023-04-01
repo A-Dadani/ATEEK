@@ -1,19 +1,15 @@
 
 import 'package:file_picker/file_picker.dart';
-import 'dart:html';
+
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:news/responsive.dart';
 import 'package:news/constants.dart';
-import 'dart:io';
 import 'dart:convert';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:news/screens/login_screen.dart';
-import 'package:path/path.dart' as path;
-
 
 class CarouselDemo extends StatefulWidget {
   @override
