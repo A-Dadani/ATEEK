@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "765320440143",
+    "project_id": "ateek-rosa",
+    "storage_bucket": "ateek-rosa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765320440143:android:9da58cf167c17e211b3d3a",
+        "android_client_info": {
+          "package_name": "com.example.news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765320440143-s1fc0oor99t6vmip36s9quuvgdhbcnpu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk11-kN3oP2cXb2HwxcOwx6D0TU_R6YmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765320440143-7es5narjcvp6r0t1k6br5rmtmuo7lf1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
