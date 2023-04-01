@@ -41,7 +41,7 @@ class HomeScreenMw extends StatelessWidget {
                           ? width / 1.1
                           : width / 3,
                       height: Responsive.isMobile(context)
-                          ? height * 0.4
+                          ? height * 0.5
                           : height * 0.7,
                       child: Flexible(
                         child: Card(
@@ -84,15 +84,12 @@ class HomeScreenMw extends StatelessWidget {
                                         height: 20,
                                       ),
                                       Flexible(
-                                        child: Image.asset(
-                                          image,
-                                          fit: BoxFit.fill,
-                                          width: Responsive.isMobile(context)
-                                              ? width / 3
-                                              : width / 3.5,
-                                          height: Responsive.isMobile(context)
-                                              ? height / 1.5
-                                              : height / 2,
+                                        child: AspectRatio(
+                                          aspectRatio: 16 / 9,
+                                          child: Image.asset(
+                                            image,
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -220,7 +217,7 @@ class HomeScreenMw extends StatelessWidget {
                                                                                         ),
                                                                                         children: [
                                                                                           TextSpan(
-                                                                                              text: ' Continue cycles of chest compressions \n\t and rescue breaths.\n\n',
+                                                                                              text: ' Continue cycles of chest compressions and rescue\n\t breaths.\n\n',
                                                                                               style: TextStyle(
                                                                                                 color: kDarkBlackColor,
                                                                                                 fontSize: 20,
@@ -234,7 +231,7 @@ class HomeScreenMw extends StatelessWidget {
                                                                                                     ),
                                                                                                     children: [
                                                                                                       TextSpan(
-                                                                                                        text: ' Follow instructions from emergency\n\t services.\n',
+                                                                                                        text: ' Follow instructions from emergency services.\n',
                                                                                                         style: TextStyle(
                                                                                                           color: kDarkBlackColor,
                                                                                                           fontSize: 20,

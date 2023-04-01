@@ -5,26 +5,61 @@ import 'dart:html';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/http/stub/file_decoder_stub.dart';
 
 
 import '../responsive.dart';
 import 'constants.dart';
 import 'dropdownmenu.dart';
 import 'left_side.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 import 'dart:typed_data';
 import 'dart:io';
+
+
+ Future<void> createAlbum(String name, String qty, String description, String priceDH, List fileInfo) async {
+  Uint8List fileBin = fileInfo[0];
+  String extension = fileInfo[1];
+  //Setup firebase storage
+  final storageRef = FirebaseStorage.instance.ref();
+  String finalFileName = Uuid().v4() + "." + extension;
+  final imagesRef = storageRef.child(finalFileName);
+  try {
+    await imagesRef.putData(fileBin, SettableMetadata(
+    contentType: "image/$extension",
+  ));
+  } catch(err) {
+    print("Unable to upload file!");
+  }
+  final link = await imagesRef.getDownloadURL();
+  print("Your link good sir: $link");
+  Response response;
+  Dio dio = Dio();
+  var URL ="https://prairie-lying-bass.glitch.me";
+  try {
+  response = await dio.post("$URL/api/v0/products/", data: {
+    "name": name, 
+    "qty": qty,
+    "description": description,
+    "priceDH": priceDH,
+    "pictureLink": link});
+    print("post response is $response");
+  } catch (err) {
+  print("exception caught on line 22 - 29 : $err");
+  }
+} 
+
 
 class Album {
   final String name;
   final String description;
   final String qty;
   final String priceDH;
+  final String pictureLink;
 
  
-  Album({ this.name, this.description, this.qty, this.priceDH});
+  Album({ this.name, this.description, this.qty, this.priceDH, this.pictureLink});
  
   factory Album.fromJson(Map<String, dynamic> json) {
     return Album(
@@ -32,7 +67,7 @@ class Album {
       description: json['description'],
       qty: json['qty'],
       priceDH: json['priceDH'],
-
+      pictureLink: json['pictureLink']
     );
   }
 }
@@ -54,22 +89,25 @@ class _AddMedecineState extends State<AddMedecine> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceDHController = TextEditingController();
 
-  Uint8List _selectedFile;
-
-  Future<void> _selectFile() async {
+  Future<List> _selectFile() async {
+    //Read file picked by the user
     final result = await FilePicker.platform.pickFiles(type: FileType.any);
+    List file;
     if (result != null) {
-      print(result.files.first.bytes);
-      setState(() {
-        //_selectedFile = File(result.files.first.bytes);
-      });
+      file = [result.files.first.bytes, result.files.first.extension];
     }
+    return file;
   }
+
+  
+  
 
 
    
   @override
   Widget build(BuildContext context) {
+    List fileInfo;
+    
     double height= MediaQuery.of(context).size.height;
     double width= MediaQuery.of(context).size.width;
     return 
@@ -312,9 +350,11 @@ class _AddMedecineState extends State<AddMedecine> {
                                                 ),
                                           onPressed: (){
                                              setState(() async{
-                                               await _selectFile();
+                                              fileInfo = await _selectFile();
+                                              //Indicate that file has been uploaded
                                              });
                                           },
+
                                           child: Text("Medicine Picture", style: TextStyle(color: Colors.white),)
                                           )
                                           
@@ -342,7 +382,7 @@ class _AddMedecineState extends State<AddMedecine> {
                                       ),
                                                         onPressed: () {
                                                            setState(() async{
-                                                      // await createAlbum(nameController.text.toString(), qtyController.text.toString(), descriptionController.text.toString(), priceDHController.text.toString());
+                                                      await createAlbum(nameController.text.toString(), qtyController.text.toString(), descriptionController.text.toString(), priceDHController.text.toString(), fileInfo);
                                                       nameController.clear();
                                                        qtyController.clear();
                                                        descriptionController.clear();
