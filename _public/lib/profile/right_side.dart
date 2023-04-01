@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../constants.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:image_network/image_network.dart';
 
 import '../responsive.dart';
 import 'global.dart';
@@ -12,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 List<Medicines> _medicines = [];
 class Medicines {
-  final String imageUrl; 
+  final String pictureLink; 
   final String productID;
   final String name;
   final String description;
@@ -21,7 +22,7 @@ class Medicines {
   final String qty;
 
   Medicines({
-    @required this.imageUrl, 
+    @required this.pictureLink, 
     @required this.productID,
     @required this.name,
     @required this.description,
@@ -133,7 +134,7 @@ class RrightSideState extends State<RightSide> {
          final List<dynamic> data = jsonDecode(response.body);
           _medicines = data
               .map((item) => Medicines(
-                     imageUrl: item['imageUrl'], 
+                    pictureLink: item['pictureLink'], 
                     productID: item['productID'],
                     name: item['name'],
                     description: item['description'],
@@ -449,9 +450,13 @@ class RrightSideState extends State<RightSide> {
                             right: 10,
                             bottom: 0,
                           ),
-                          child: Image.asset("images/medicine.png"),
+                          child: ImageNetwork(
+                            image: medicine.pictureLink,
+                            height: 200,
+                            width: 330,
+                            fitWeb: BoxFitWeb.fill,
+                          ),
                           decoration: BoxDecoration(
-                            
                             borderRadius: const BorderRadius.all(
                                 Radius.circular(24)),
                           ),

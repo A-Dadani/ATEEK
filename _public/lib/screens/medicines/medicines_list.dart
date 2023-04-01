@@ -9,9 +9,10 @@ import 'package:news/screens/main/components/side_menu.dart';
 import 'package:news/screens/main/components/header.dart';
 import 'package:news/screens/home/components/sidebar_container.dart';
 import 'package:news/screens/pharmacies_list/pharmacies_list.dart';
+import 'package:image_network/image_network.dart';
 
 class Medicine {
-  /* final String imageUrl; */
+  final String pictureLink;
   final String productID;
   final String name;
   final String description;
@@ -20,7 +21,7 @@ class Medicine {
   final String qty;
 
   Medicine({
-    /* @required this.imageUrl, */
+    @required this.pictureLink,
     @required this.productID,
     @required this.name,
     @required this.description,
@@ -58,15 +59,16 @@ class _MedicinesState extends State<Medicines> {
 
   Future<void> _getMedicines() async {
     try {
+      final URL = "https://prairie-lying-bass.glitch.me";
       final response = await http.get(Uri.parse(
-          'https://prairie-lying-bass.glitch.me/api/v0/pharmacies/${widget.selectedPharmacy}/allProducts'));
+          '$URL/api/v0/pharmacies/${widget.selectedPharmacy}/allProducts'));
       if (response.statusCode == 200) {
         setState(() {
           // Parse the response and update the medicines list
           final List<dynamic> data = jsonDecode(response.body);
           _medicines = data
               .map((item) => Medicine(
-                    /* imageUrl: item['imageUrl'], */
+                    pictureLink: item['pictureLink'],
                     productID: item['productID'],
                     name: item['name'],
                     description: item['description'],
@@ -127,7 +129,12 @@ class _MedicinesState extends State<Medicines> {
                                                           right: 10,
                                                           bottom: 0,
                                                         ),
-                                                        child: Image.asset("images/medicine.png"),
+                                                        child: ImageNetwork( //
+                                                          image: medicine.pictureLink,
+                                                          width: 330,
+                                                          height: 200,
+                                                          fitWeb: BoxFitWeb.fill,
+                                                        ),
                                                         decoration: BoxDecoration(
                                                           
                                                           borderRadius: const BorderRadius.all(
