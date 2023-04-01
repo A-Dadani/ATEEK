@@ -10,14 +10,17 @@ const addOne = async (req, res) => {
         name,
         priceDH,
         description,
-        qty
+        qty,
+        pictureLink
     } = req.body;
     const regexFloat = /^-?\d*\.?\d+$/;
     const regexInt = /^[0-9]+$/;
-    if (!name || !priceDH || !description || !qty) {
+    const regexLink = /^\b(?:https?|ftp):\/\/[-\w+&@#/%?=~|!:,.;]*[-\w+&@#/%=~|]$/;
+
+    if (!name || !priceDH || !description || !qty || !pictureLink) {
         throw new errors.BadRequestError("Please provide all required info");
     }
-    if (!priceDH.match(regexFloat) || !qty.match(regexInt)) {
+    if (!priceDH.match(regexFloat) || !qty.match(regexInt) || !pictureLink.match(regexLink)) {
         throw new errors.BadRequestError("Malformated request!");
     }
 
@@ -28,6 +31,7 @@ const addOne = async (req, res) => {
     const userSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacists", uid));
     const pid = userSnapshot.data().pharmacyID;
     const prodDocRef = await firestoreClientLib.addDoc(firestoreClientLib.collection(db, "products"), {
+        pictureLink,
         name,
         description,
         priceDH,
@@ -50,23 +54,27 @@ const patchOne = async (req, res) => {
         name,
         priceDH,
         description,
-        qty
+        qty,
+        pictureLink
     } = req.body;
 
-    regexFloat = /^-?\d*\.?\d+$/;
-    regexInt = /^[0-9]+$/;
+    const regexFloat = /^-?\d*\.?\d+$/;
+    const regexInt = /^[0-9]+$/;    
+    const regexLink = /^\b(?:https?|ftp):\/\/[-\w+&@#/%?=~|!:,.;]*[-\w+&@#/%=~|]$/;
     if ((priceDH && !priceDH.match(regexFloat))
-        || (qty && !qty.match(regexInt))) {
+        || (qty && !qty.match(regexInt))
+        || (pictureLink && !pictureLink.match(regexLink))) {
         throw new errors.BadRequestError("Malformated request!");        
     }
     const newInfo = {
         ...(name ? {name} : {}),
         ...((typeof priceDH !== "undefined") ? {priceDH} : {}),
         ...(description ? {description} : {}),
-        ...((typeof qty !== "undefined") ? {qty} : {})
+        ...((typeof qty !== "undefined") ? {qty} : {}),
+        ...(pictureLink ? {pictureLink} : {})
     };
     await firestoreClientLib.updateDoc(firestoreClientLib.doc(db, "products", prid), newInfo);
-    res.status(httpStatus.StatusCodes.OK).send("Product patched successfully.");
+    res.status(httpStatus.StatusCodes.OK).json({msg : "Product patched successfully."});
 };
 
 const getOne = async (req, res) => {
