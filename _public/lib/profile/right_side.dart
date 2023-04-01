@@ -471,28 +471,7 @@ class RrightSideState extends State<RightSide> {
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10),
-                              height: height*0.07,
-                              child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: Icon(Icons.production_quantity_limits_outlined),
-                              label: Text("Add to Cart"),
-                              
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: kPrimaryColor,
-                              textStyle: TextStyle(fontSize: 15),
-                              
-                              ),
-                            ),
-                            ),
-                             SizedBox(height: height*0.04,),
-
-                          ],
-                        ),
+                        
                         SizedBox(height: height*0.04,),
                       ],
                     )),

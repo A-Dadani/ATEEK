@@ -3,12 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:news/profile/addmed.dart';
 import 'package:news/profile/set.dart';
 import 'package:news/profile/settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
+import '../screens/login_screen.dart';
 import 'addmedecine.dart';
 import 'home.dart';
 import 'package:dio/dio.dart';
 //import '../global.dart';
+
+
+ Future<void> logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('user_token');
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+}
 
 Future<String> GetName()async{
   Response response;
@@ -31,6 +43,7 @@ class LeftSide extends StatefulWidget {
 }
 
 class _LeftSideState extends State<LeftSide> {
+   
   
   
   @override
@@ -293,6 +306,7 @@ class _LeftSideState extends State<LeftSide> {
     ),
   ),
                           onPressed: () {
+                            logout(context);
                             // Navigate to Feed page
                           },
                           child: Text(
