@@ -29,13 +29,13 @@ server.use("/api/v0/auth", authRouter);
 server.use("/api/v0/pharmacies", pharmaciesRouter);
 server.use("/api/v0/pharmacists", pharmacistsRouter);
 server.use("/api/v0/products", productsRouter);
+server.use(express.static("./public"));
 
 if (process.env.NODE_ENV === "production") {
     server.use(notFoundMiddleware);
     server.use(errorHandlerMiddleware);
 }
 
-server.use(express.static("./public"));
 const port = process.env.PORT || 3000;
 const start = async () => {
     try {
