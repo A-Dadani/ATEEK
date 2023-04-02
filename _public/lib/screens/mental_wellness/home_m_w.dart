@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-//import 'package:news/constants.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:news/constants.dart';
 import 'package:news/responsive.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/MenuController.dart';
-//import 'package:news/responsive.dart';
+
 
 class HomeScreenMw extends StatelessWidget {
   HomeScreenMw({
@@ -37,10 +34,10 @@ class HomeScreenMw extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      width: Responsive.isMobile(context)
+                      width: !Responsive.isDesktop(context)
                           ? width / 1.1
                           : width / 3,
-                      height: Responsive.isMobile(context)
+                      height: !Responsive.isDesktop(context)
                           ? height * 0.5
                           : height * 0.7,
                       child: Flexible(
@@ -61,7 +58,7 @@ class HomeScreenMw extends StatelessWidget {
                                               style: TextStyle(
                                                 color: Colors.red,
                                                 fontFamily:
-                                                    'assets/fonts/Raleway-SemiBold.ttf',
+                                                    'assets/fonts/Raleway-Medium.ttf',
                                                 fontSize: Responsive.isDesktop(
                                                         context)
                                                     ? 35
@@ -73,7 +70,7 @@ class HomeScreenMw extends StatelessWidget {
                                               style: TextStyle(
                                                 color: Colors.red,
                                                 fontFamily:
-                                                    'assets/fonts/Raleway-SemiBold.ttf',
+                                                    'assets/fonts/Raleway-Medium.ttf',
                                                 fontSize: Responsive.isDesktop(
                                                         context)
                                                     ? 35
@@ -107,9 +104,6 @@ class HomeScreenMw extends StatelessWidget {
                               autoPlayAnimationDuration:
                                   Duration(milliseconds: 1000),
                               aspectRatio: 16 / 9,
-                              height: !Responsive.isDesktop(context)
-                                  ? (height / 4)
-                                  : height / 1.1,
                             ),
                           ),
                         ),
@@ -119,152 +113,155 @@ class HomeScreenMw extends StatelessWidget {
                 ),
               ),
               if (Responsive.isDesktop(context))
-                SizedBox(
-                  width: width * 0.35,
-                  child: Card(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    color: Colors.white,
-                    child: Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: kDefaultPadding,
-                            horizontal: kDefaultPadding),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                  text: '\t\t\t 🚨 CPR Steps \n\n',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontFamily:
-                                        'assets/fonts/Raleway-SemiBold.ttf',
-                                    fontSize: 35,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                        text: '1.',
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 20,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                              text:
-                                                  ' Check for responsiveness.\n\n',
-                                              style: TextStyle(
-                                                color: kDarkBlackColor,
-                                                fontSize: 20,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                    text: '2.',
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 20,
-                                                    ),
-                                                    children: [
-                                                      TextSpan(
-                                                          text:
-                                                              ' Call for emergency services.\n\n',
-                                                          style: TextStyle(
-                                                            color:
-                                                                kDarkBlackColor,
-                                                            fontSize: 20,
-                                                          ),
-                                                          children: [
-                                                            TextSpan(
-                                                                text: '3.',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  fontSize: 20,
-                                                                ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                      text:
-                                                                          ' Perform chest compressions.\n\n',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color:
-                                                                            kDarkBlackColor,
-                                                                        fontSize:
-                                                                            20,
-                                                                      ),
-                                                                      children: [
-                                                                        TextSpan(
-                                                                            text:
-                                                                                '4.',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.red,
-                                                                              fontSize: 20,
-                                                                            ),
-                                                                            children: [
-                                                                              TextSpan(
-                                                                                  text: ' Open airway and give rescue breaths.\n\n',
-                                                                                  style: TextStyle(
-                                                                                    color: kDarkBlackColor,
-                                                                                    fontSize: 20,
-                                                                                  ),
-                                                                                  children: [
-                                                                                    TextSpan(
-                                                                                        text: '5.',
-                                                                                        style: TextStyle(
-                                                                                          color: Colors.red,
-                                                                                          fontSize: 20,
-                                                                                        ),
-                                                                                        children: [
-                                                                                          TextSpan(
-                                                                                              text: ' Continue cycles of chest compressions and rescue\n\t breaths.\n\n',
-                                                                                              style: TextStyle(
-                                                                                                color: kDarkBlackColor,
-                                                                                                fontSize: 20,
-                                                                                              ),
-                                                                                              children: [
-                                                                                                TextSpan(
-                                                                                                    text: '6.',
-                                                                                                    style: TextStyle(
-                                                                                                      color: Colors.red,
-                                                                                                      fontSize: 20,
-                                                                                                    ),
-                                                                                                    children: [
-                                                                                                      TextSpan(
-                                                                                                        text: ' Follow instructions from emergency services.\n',
-                                                                                                        style: TextStyle(
-                                                                                                          color: kDarkBlackColor,
-                                                                                                          fontSize: 20,
-                                                                                                        ),
-                                                                                                      )
-                                                                                                    ])
-                                                                                              ])
-                                                                                        ])
-                                                                                  ])
-                                                                            ])
-                                                                      ])
-                                                                ])
-                                                          ])
-                                                    ])
-                                              ])
-                                        ]),
-                                  ]),
-                              maxLines: null,
-                              softWrap: true,
-                            ),
-                          ],
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    width: width * 0.3,
+                    child: Card(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      color: Colors.white,
+                      child: Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: kDefaultPadding,
+                              horizontal: kDefaultPadding),
+                          child: Row(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                    text: '\t\t\t 🚨 CPR Steps \n\n',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily:
+                                          'assets/fonts/Raleway-Medium.ttf',
+                                      fontSize: 35,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                          text: '1.',
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 18,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                                text:
+                                                    ' Check for responsiveness.\n\n',
+                                                style: TextStyle(
+                                                  color: kDarkBlackColor,
+                                                  fontSize: 18,
+                                                ),
+                                                children: [
+                                                  TextSpan(
+                                                      text: '2.',
+                                                      style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontSize: 18,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                            text:
+                                                                ' Call for emergency services.\n\n',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  kDarkBlackColor,
+                                                              fontSize: 18,
+                                                            ),
+                                                            children: [
+                                                              TextSpan(
+                                                                  text: '3.',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .red,
+                                                                    fontSize:
+                                                                        18,
+                                                                  ),
+                                                                  children: [
+                                                                    TextSpan(
+                                                                        text:
+                                                                            ' Perform chest compressions.\n\n',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              kDarkBlackColor,
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
+                                                                        children: [
+                                                                          TextSpan(
+                                                                              text: '4.',
+                                                                              style: TextStyle(
+                                                                                color: Colors.red,
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                              children: [
+                                                                                TextSpan(
+                                                                                    text: ' Open airway and give rescue breaths.\n\n',
+                                                                                    style: TextStyle(
+                                                                                      color: kDarkBlackColor,
+                                                                                      fontSize: 18,
+                                                                                    ),
+                                                                                    children: [
+                                                                                      TextSpan(
+                                                                                          text: '5.',
+                                                                                          style: TextStyle(
+                                                                                            color: Colors.red,
+                                                                                            fontSize: 18,
+                                                                                          ),
+                                                                                          children: [
+                                                                                            TextSpan(
+                                                                                                text: ' Continue cycles of chest compressions and \n\t rescue breaths.\n\n',
+                                                                                                style: TextStyle(
+                                                                                                  color: kDarkBlackColor,
+                                                                                                  fontSize: 18,
+                                                                                                ),
+                                                                                                children: [
+                                                                                                  TextSpan(
+                                                                                                      text: '6.',
+                                                                                                      style: TextStyle(
+                                                                                                        color: Colors.red,
+                                                                                                        fontSize: 18,
+                                                                                                      ),
+                                                                                                      children: [
+                                                                                                        TextSpan(
+                                                                                                          text: ' Follow instructions from emergency services.\n',
+                                                                                                          style: TextStyle(
+                                                                                                            color: kDarkBlackColor,
+                                                                                                            fontSize: 18,
+                                                                                                          ),
+                                                                                                        )
+                                                                                                      ])
+                                                                                                ])
+                                                                                          ])
+                                                                                    ])
+                                                                              ])
+                                                                        ])
+                                                                  ])
+                                                            ])
+                                                      ])
+                                                ])
+                                          ]),
+                                    ]),
+                                maxLines: null,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 )
             ]),
-            if (Responsive.isMobile(context)) SizedBox(height: 40),
-            if (Responsive.isMobile(context))
+            if (Responsive.isMobile(context) || Responsive.isTablet(context))
+              SizedBox(height: 40),
+            if (Responsive.isMobile(context) || Responsive.isTablet(context))
               Column(
                 children: [
                   SizedBox(
-                    width: width / 1.1,
+                    width: 500,
                     height: height * 0.55,
                     child: Card(
                       shape: const RoundedRectangleBorder(
@@ -285,7 +282,7 @@ class HomeScreenMw extends StatelessWidget {
                                     style: TextStyle(
                                       color: Colors.red,
                                       fontFamily:
-                                          'assets/fonts/Raleway-SemiBold.ttf',
+                                          'assets/fonts/Raleway-Medium.ttf',
                                       fontSize: 30,
                                     ),
                                     children: [

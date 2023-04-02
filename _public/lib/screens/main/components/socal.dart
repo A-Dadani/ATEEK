@@ -45,6 +45,8 @@ class Socal extends StatelessWidget {
               vertical:
                   kDefaultPadding / (Responsive.isDesktop(context) ? 1 : 2),
             ),
+            
+            
           ),
           child: Text("Login"),
         ),

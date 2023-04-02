@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
                  ): const SizedBox(),
          SingleChildScrollView(
            child: SizedBox(
-             height:  Responsive.isDesktop(context)? height: height*1.2,
+             height:  Responsive.isDesktop(context)? height*1.1: height*1.2,
              width: Responsive.isDesktop(context)? width*0.4 : width*0.85,
              child: Card
              (

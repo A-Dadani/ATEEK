@@ -1,5 +1,7 @@
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:news/profile/main.dart';
 import 'package:news/profile/addmed.dart';
 import 'package:news/profile/set.dart';
 import 'dart:math' as math show pi;
@@ -7,8 +9,28 @@ import 'dart:math' as math show pi;
 import 'package:news/profile/settings.dart';
 
 import '../constants.dart';
+import '../screens/login_screen.dart';
 import 'addmedecine.dart';
 import 'home.dart';
+
+
+Future<void> logout(BuildContext context) async {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.remove('user_token');
+    try {
+      Response response;
+      Dio dio = Dio();
+      final URL = "https://prairie-lying-bass.glitch.me";
+      response = await dio.post("$URL/api/v0/auth/signout");
+      print("User signed out");
+    } catch (err) {
+      print("Runtime error while trying to logout: $err");
+    }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+}
 
 class SidebarPage extends StatefulWidget {
   @override
@@ -24,7 +46,7 @@ class _SidebarPageState extends State<SidebarPage> {
   void initState() {
     super.initState();
     _items = _generateItems;
-    _headline = _items.firstWhere((item) => item.isSelected).text;
+    _headline = " ";
   }
 
   List<CollapsibleItem> get _generateItems {
@@ -33,14 +55,17 @@ class _SidebarPageState extends State<SidebarPage> {
         text: 'Your Medecine List',
         icon: Icons.home,
        onPressed: () {
-         setState(() {
+       
+          _headline = 'Your Medicine List';
             Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Home()));
-         });
+            MaterialPageRoute(builder: (context) => MyApp()));
+             
+         
+          
             // Navigate to Feed page
           },
-        isSelected: true,
+        // isSelected: true,
       ),
       
       
@@ -48,26 +73,28 @@ class _SidebarPageState extends State<SidebarPage> {
         text: 'Add Medicine',
         icon: Icons.add,
         onPressed: () {
-         setState(() {
-            Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  AddMed()));
+         
+           _headline = 'Add Medicine';
+            
              
-         });
-                                      
+       
+         Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  AddMed()));                       
             },
-            //  isSelected: true,
+            // isSelected: true,
       ),
       CollapsibleItem(
         text: 'Settings',
-        icon: Icons.settings,
+        icon: Icons.settings, 
          onPressed: () {
-            setState(() {
+            
               _headline = 'Settings';
-              Navigator.push(
+              
+           
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Sett()));
-            });
                             // Navigate to Feed page
                           },
                           //  isSelected: true,
@@ -77,7 +104,7 @@ class _SidebarPageState extends State<SidebarPage> {
       CollapsibleItem(
         text: 'Logout',
         icon: Icons.logout,
-        onPressed: () => setState(() => _headline = 'Logout'),
+        onPressed: () => logout(context)
       ),
       
     ];
@@ -88,11 +115,15 @@ class _SidebarPageState extends State<SidebarPage> {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: CollapsibleSidebar(
-        isCollapsed: false,
+        isCollapsed: MediaQuery.of(context).size.width <= 800,
         items: _items,
-        collapseOnBodyTap: true,
+        collapseOnBodyTap: false,
         avatarImg: _avatarImg,
         title: 'Lorem IPSUM',
+        onTitleTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        },
     //     selectedIconBox: Color(0xff2F4047),
     // selectedIconColor: Color(0xff4AC6EA),
     // unselectedIconColor: Color(0xff6A7886),
@@ -100,7 +131,7 @@ class _SidebarPageState extends State<SidebarPage> {
         body: _body(size, context),
         backgroundColor: Colors.black,
         selectedTextColor: kLabelColor,
-        selectedIconBox: Colors.white,
+        selectedIconBox: Colors.black,
         selectedIconColor: kLabelColor,
         unselectedIconColor: Color(0xff6A7886),
         textStyle: const TextStyle(fontSize: 15,),

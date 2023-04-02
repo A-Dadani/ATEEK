@@ -161,6 +161,8 @@ class _MedicinesState extends State<Medicines> {
                               textStyle: TextStyle(fontSize: 15),
                               
                               ),
+                              
+                              
                             ),
                             ),
                              SizedBox(height: height*0.04,),

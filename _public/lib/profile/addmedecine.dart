@@ -137,7 +137,7 @@ class _AddMedecineState extends State<AddMedecine> {
                   ): const SizedBox(),
           SingleChildScrollView(
             child: SizedBox(
-              height: Responsive.isDesktop(context)? height*1.2: height*1.4,
+              height: Responsive.isDesktop(context)? height*1.4: height*1.4,
               width: Responsive.isDesktop(context)? width*0.4: width*0.85,
               child: Card
               (
@@ -375,6 +375,7 @@ class _AddMedecineState extends State<AddMedecine> {
                                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                              RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(50.0),
+                                                     
                                                       
                                                       )
                                                     ),

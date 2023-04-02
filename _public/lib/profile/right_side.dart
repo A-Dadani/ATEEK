@@ -452,8 +452,8 @@ class RrightSideState extends State<RightSide> {
                           ),
                           child: ImageNetwork(
                             image: medicine.pictureLink,
-                            height: 200,
-                            width: 330,
+                            height: height*0.25,
+                            width: width*0.25,
                             fitWeb: BoxFitWeb.fill,
                           ),
                           decoration: BoxDecoration(
