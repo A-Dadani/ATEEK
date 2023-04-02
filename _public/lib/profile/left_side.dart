@@ -14,8 +14,17 @@ import 'package:dio/dio.dart';
 
 
  Future<void> logout(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('user_token');
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.remove('user_token');
+    try {
+      Response response;
+      Dio dio = Dio();
+      final URL = "https://prairie-lying-bass.glitch.me";
+      response = await dio.post("$URL/api/v0/auth/signout");
+      print("User signed out");
+    } catch (err) {
+      print("Runtime error while trying to logout: $err");
+    }
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginScreen()),

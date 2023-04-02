@@ -300,12 +300,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     tag: "login_btn",
                                                     child: ElevatedButton(
                                                       style: ButtonStyle(
+                                                      
                                                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                            RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(50.0),
                                                     
+                                                    
                                                     )
-                                                  )
+                                                  ),
+                                                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                              (Set<MaterialState> states) {
+                                                if (states.contains(MaterialState.pressed))
+                                                  // ignore: curly_braces_in_flow_control_structures
+                                                  return kPrimaryColor;
+                                                return kPrimaryColor;
+                                                },
+                                              ), 
                                     ),
                                                       onPressed: () {
                                                          setState(() async{
