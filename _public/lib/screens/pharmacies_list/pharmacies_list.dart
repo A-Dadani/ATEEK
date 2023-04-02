@@ -21,7 +21,7 @@ class _PharmaciesState extends State<Pharmacies> {
   Future<List<PharmacyData>> _retPharmaciesList() async {
     final response = await http.get(
       Uri.parse(
-          'https://prairie-lying-bass.glitch.me/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
+          'localhost:5000/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
     );
     if (response.statusCode == 200) {
       try {

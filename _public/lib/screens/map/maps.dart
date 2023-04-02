@@ -27,7 +27,7 @@ class _MapScreenState extends State<MapScreen> {
   Future<List<PharmacyData>> _retPharmaciesList() async {
     final response = await http.get(
       Uri.parse(
-          'https://prairie-lying-bass.glitch.me/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
+          'localhost:5000/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
     );
     pharmacyMarker = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(devicePixelRatio: 2.5),

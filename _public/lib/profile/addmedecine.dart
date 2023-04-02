@@ -36,7 +36,7 @@ import 'dart:io';
   print("Your link good sir: $link");
   Response response;
   Dio dio = Dio();
-  var URL ="https://prairie-lying-bass.glitch.me";
+  var URL ="localhost:5000";
   try {
   response = await dio.post("$URL/api/v0/products/", data: {
     "name": name, 

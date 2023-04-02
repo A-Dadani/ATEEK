@@ -20,7 +20,7 @@ Future<void> logout(BuildContext context) async {
     try {
       Response response;
       Dio dio = Dio();
-      final URL = "https://prairie-lying-bass.glitch.me";
+      final URL = "localhost:5000";
       response = await dio.post("$URL/api/v0/auth/signout");
       print("User signed out");
     } catch (err) {

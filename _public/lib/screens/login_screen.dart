@@ -19,7 +19,7 @@ Future<void> createAlbum(String email, dynamic password) async {
   Response response;
  
   Dio dio = Dio();
-  var URL ="https://prairie-lying-bass.glitch.me";
+  var URL ="localhost:5000";
   // response = await dio.get("$URL/api/v0/auth/authStatus");
   // print("Response :: ${response.headers.toString()}");
  try {

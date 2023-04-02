@@ -37,7 +37,7 @@ class Medicines {
 Future<String> GetPharmacyID()async{
   Response response;
   Dio dio = Dio();
-  var URL ="https://prairie-lying-bass.glitch.me";
+  var URL ="localhost:5000";
   response = await dio.get("$URL/api/v0/pharmacies/getOwnID");
   print("pharmacy name is: $response");
   return response.data['ID'].toString();
@@ -56,7 +56,7 @@ Future<void> patchState(bool isGarde)async{
   Response response;
  
   Dio dio = Dio();
-  var URL ="https://prairie-lying-bass.glitch.me";
+  var URL ="localhost:5000";
 
   // response = await dio.get("$URL/api/v0/auth/authStatus");
   // print("Response :: ${response.headers.toString()}");
@@ -77,7 +77,7 @@ Future<bool> getState()async{
   Response response;
  
   Dio dio = Dio();
-  var URL ="https://prairie-lying-bass.glitch.me";
+  var URL ="localhost:5000";
  try {
   response = await dio.get("$URL/api/v0/pharmacies/getDutyStatus");
   print("get response $response");
@@ -126,7 +126,7 @@ class RrightSideState extends State<RightSide> {
     try {
       final pharmacyID= await GetPharmacyID();
       final response = await http.get(Uri.parse(
-          'https://prairie-lying-bass.glitch.me/api/v0/pharmacies/$pharmacyID/allProducts'));
+          'localhost:5000/api/v0/pharmacies/$pharmacyID/allProducts'));
       if (response.statusCode == 200) {
       try {
         

@@ -87,7 +87,7 @@ class _CarouselDemoState extends State<CarouselDemo> {
 
   Future<void> postData() async {
     
-  var request = http.MultipartRequest('POST', Uri.parse('"https://prairie-lying-bass.glitch.me/api/v0/auth/signup'));
+  var request = http.MultipartRequest('POST', Uri.parse('localhost:5000/api/v0/auth/signup'));
 
   // Add a text field to the request
   request.fields['email'] = 'John Doe';

@@ -59,7 +59,7 @@ class _MedicinesState extends State<Medicines> {
 
   Future<void> _getMedicines() async {
     try {
-      final URL = "https://prairie-lying-bass.glitch.me";
+      final URL = "localhost:5000";
       final response = await http.get(Uri.parse(
           '$URL/api/v0/pharmacies/${widget.selectedPharmacy}/allProducts'));
       if (response.statusCode == 200) {
@@ -161,7 +161,7 @@ class _MedicinesState extends State<Medicines> {
                               textStyle: TextStyle(fontSize: 15),
                               
                               ),
-                              
+
                               
                             ),
                             ),
