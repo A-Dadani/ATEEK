@@ -12,38 +12,33 @@ import 'home.dart';
 import 'package:dio/dio.dart';
 //import '../global.dart';
 
-
- Future<void> logout(BuildContext context) async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.remove('user_token');
-    try {
-      Response response;
-      Dio dio = Dio();
-      final URL = "localhost:5000";
-      response = await dio.post("$URL/api/v0/auth/signout");
-      print("User signed out");
-    } catch (err) {
-      print("Runtime error while trying to logout: $err");
-    }
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+Future<void> logout(BuildContext context) async {
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // prefs.remove('user_token');
+  try {
+    Response response;
+    Dio dio = Dio();
+    final URL = "http://localhost:5000";
+    response = await dio.post("$URL/api/v0/auth/signout");
+    print("User signed out");
+  } catch (err) {
+    print("Runtime error while trying to logout: $err");
+  }
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => LoginScreen()),
+  );
 }
 
-Future<String> GetName()async{
+Future<String> GetName() async {
   Response response;
   Dio dio = Dio();
-  var URL ="localhost:5000";
+  var URL = "http://localhost:5000";
   response = await dio.get("$URL/api/v0/auth/authStatus");
   print("username is: $response");
   return response.data['displayName'].toString();
 }
 
-
-
- 
- 
 class LeftSide extends StatefulWidget {
   const LeftSide({superkey});
 
@@ -52,16 +47,12 @@ class LeftSide extends StatefulWidget {
 }
 
 class _LeftSideState extends State<LeftSide> {
-   
-  
-  
   @override
-  Widget build(BuildContext context){
-    double height= MediaQuery.of(context).size.height;
-    double width= MediaQuery.of(context).size.width;
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     // String name = await GetName();
-    return 
-    Expanded(
+    return Expanded(
       flex: 2,
       child: Container(
         color: Color(0xFF01110A),
@@ -77,49 +68,52 @@ class _LeftSideState extends State<LeftSide> {
               children: [
                 Container(
                   margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                  child: Image.asset('images/favicon.png', height: height*0.1, width: width*0.1, 
-                        ),
+                  child: Image.asset(
+                    'images/favicon.png',
+                    height: height * 0.1,
+                    width: width * 0.1,
+                  ),
                 ),
-                       SizedBox(height: height*0.08),
+                SizedBox(height: height * 0.08),
                 const CircleAvatar(
                   radius: 50,
                   backgroundImage: AssetImage('images/profile.jpg'),
                 ),
                 const SizedBox(height: 10),
 
-                 FutureBuilder<String>(
-                future: GetName(), // The future function to retrieve the name
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(
-                      snapshot.data,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.red[800],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text(
-                      'Error: ${snapshot.error}',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  } else {
-                    return Text(
-                      'Loading...',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-                },
-              ),
+                FutureBuilder<String>(
+                  future: GetName(), // The future function to retrieve the name
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.red[800],
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text(
+                        'Error: ${snapshot.error}',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    } else {
+                      return Text(
+                        'Loading...',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }
+                  },
+                ),
                 // const Text(
                 //   "Abhivan Khare",
                 //   style: TextStyle(
@@ -130,8 +124,8 @@ class _LeftSideState extends State<LeftSide> {
                 // ),
                 const SizedBox(height: 5),
 
-                SizedBox(height: height*0.1),
-                
+                SizedBox(height: height * 0.1),
+
                 Container(
                   height: 30,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -148,28 +142,28 @@ class _LeftSideState extends State<LeftSide> {
                       Expanded(
                         child: TextButton(
                           style: ButtonStyle(
-  
-    overlayColor: MaterialStateProperty.resolveWith<Color>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.hovered))
-          return kBgColor.withOpacity(0.4);
-        if (states.contains(MaterialState.focused) ||
-            states.contains(MaterialState.pressed))
-          return kBgColor.withOpacity(0.8);
-        return null; // Defer to the widget's default.
-      },
-    ),
-  ),
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered))
+                                  return kBgColor.withOpacity(0.4);
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed))
+                                  return kBgColor.withOpacity(0.8);
+                                return null; // Defer to the widget's default.
+                              },
+                            ),
+                          ),
                           onPressed: () {
                             Navigator.push(
-                                        context,
-                                         MaterialPageRoute(builder: (context) =>  Home()));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
                             // Navigate to Feed page
                           },
                           child: Text(
                             "Your Medicine List",
                             style: TextStyle(
-
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -182,7 +176,7 @@ class _LeftSideState extends State<LeftSide> {
                 ),
                 const SizedBox(height: 20),
 
-                 Container(
+                Container(
                   height: 30,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -197,24 +191,25 @@ class _LeftSideState extends State<LeftSide> {
                       ),
                       Expanded(
                         child: TextButton(
-                           style: ButtonStyle(
-  
-    overlayColor: MaterialStateProperty.resolveWith<Color>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.hovered))
-          return kBgColor.withOpacity(0.4);
-        if (states.contains(MaterialState.focused) ||
-            states.contains(MaterialState.pressed))
-          return kBgColor.withOpacity(0.8);
-        return null; // Defer to the widget's default.
-      },
-    ),
-  ),
+                          style: ButtonStyle(
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered))
+                                  return kBgColor.withOpacity(0.4);
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed))
+                                  return kBgColor.withOpacity(0.8);
+                                return null; // Defer to the widget's default.
+                              },
+                            ),
+                          ),
                           onPressed: () {
-                             Navigator.push(
-                                        context,
-                                         MaterialPageRoute(builder: (context) => AddMed()));
-                                         
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddMed()));
+
                             // Navigate to Feed page
                           },
                           child: Text(
@@ -250,23 +245,24 @@ class _LeftSideState extends State<LeftSide> {
                       ),
                       Expanded(
                         child: TextButton(
-                           style: ButtonStyle(
-  
-    overlayColor: MaterialStateProperty.resolveWith<Color>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.hovered))
-          return kBgColor.withOpacity(0.4);
-        if (states.contains(MaterialState.focused) ||
-            states.contains(MaterialState.pressed))
-          return kBgColor.withOpacity(0.8);
-        return null; // Defer to the widget's default.
-      },
-    ),
-  ),
+                          style: ButtonStyle(
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered))
+                                  return kBgColor.withOpacity(0.4);
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed))
+                                  return kBgColor.withOpacity(0.8);
+                                return null; // Defer to the widget's default.
+                              },
+                            ),
+                          ),
                           onPressed: () {
-                             Navigator.push(
-                                        context,
-                                         MaterialPageRoute(builder: (context) => Sett()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Sett()));
                             // Navigate to Feed page
                           },
                           child: Text(
@@ -301,19 +297,19 @@ class _LeftSideState extends State<LeftSide> {
                       ),
                       Expanded(
                         child: TextButton(
-                           style: ButtonStyle(
-  
-    overlayColor: MaterialStateProperty.resolveWith<Color>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.hovered))
-          return kBgColor.withOpacity(0.4);
-        if (states.contains(MaterialState.focused) ||
-            states.contains(MaterialState.pressed))
-          return kBgColor.withOpacity(0.8);
-        return null; // Defer to the widget's default.
-      },
-    ),
-  ),
+                          style: ButtonStyle(
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.hovered))
+                                  return kBgColor.withOpacity(0.4);
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed))
+                                  return kBgColor.withOpacity(0.8);
+                                return null; // Defer to the widget's default.
+                              },
+                            ),
+                          ),
                           onPressed: () {
                             logout(context);
                             // Navigate to Feed page
@@ -338,7 +334,5 @@ class _LeftSideState extends State<LeftSide> {
         ),
       ),
     );
-
-   
   }
 }

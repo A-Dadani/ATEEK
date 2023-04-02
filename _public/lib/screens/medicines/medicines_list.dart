@@ -59,7 +59,7 @@ class _MedicinesState extends State<Medicines> {
 
   Future<void> _getMedicines() async {
     try {
-      final URL = "localhost:5000";
+      final URL = "http://localhost:5000";
       final response = await http.get(Uri.parse(
           '$URL/api/v0/pharmacies/${widget.selectedPharmacy}/allProducts'));
       if (response.statusCode == 200) {
@@ -89,8 +89,8 @@ class _MedicinesState extends State<Medicines> {
 
   @override
   Widget build(BuildContext context) {
-     double height= MediaQuery.of(context).size.height;
-    double width= MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         key: _controller.scaffoldkey,
         drawer: SideMenu(),
@@ -115,62 +115,75 @@ class _MedicinesState extends State<Medicines> {
                               (medicine) => SizedBox(
                                 width: 390,
                                 child: SidebarContainer(
-                                  title: RichText(text:
-                                   TextSpan(text:
-                                  medicine.name, style: TextStyle(fontSize: 20, color: kDarkBlackColor),
-                                  children: [TextSpan(text: ' (${medicine.priceDH}DHs)', style: TextStyle(fontSize: 15, color: Colors.grey[800]))])),
+                                  title: RichText(
+                                      text: TextSpan(
+                                          text: medicine.name,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: kDarkBlackColor),
+                                          children: [
+                                        TextSpan(
+                                            text: ' (${medicine.priceDH}DHs)',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey[800]))
+                                      ])),
                                   child: Column(
                                     children: [
                                       Container(
-                                                        height: 200,
-                                                        margin: const EdgeInsets.only(
-                                                          top: 10,
-                                                          left: 10,
-                                                          right: 10,
-                                                          bottom: 0,
-                                                        ),
-                                                        child: ImageNetwork( //
-                                                          image: medicine.pictureLink,
-                                                          width: 330,
-                                                          height: 200,
-                                                          fitWeb: BoxFitWeb.fill,
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                          
-                                                          borderRadius: const BorderRadius.all(
-                                Radius.circular(24)),
-                                                        ),
-                                                      ),
+                                        height: 200,
+                                        margin: const EdgeInsets.only(
+                                          top: 10,
+                                          left: 10,
+                                          right: 10,
+                                          bottom: 0,
+                                        ),
+                                        child: ImageNetwork(
+                                          //
+                                          image: medicine.pictureLink,
+                                          width: 330,
+                                          height: 200,
+                                          fitWeb: BoxFitWeb.fill,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(24)),
+                                        ),
+                                      ),
                                       SizedBox(height: 10),
-                                    
-                                      Text(medicine.description, style: TextStyle(fontSize: 17,),),
-                                      SizedBox(height: height*0.04,),
-                                       Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10),
-                              height: height*0.07,
-                              child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: Icon(Icons.production_quantity_limits_outlined),
-                              label: Text("Add to Cart"),
-                              
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: kPrimaryColor,
-                              textStyle: TextStyle(fontSize: 15),
-                              
-                              ),
-
-                              
-                            ),
-                            ),
-                             SizedBox(height: height*0.04,),
-
-                          ],
-                        ),
-                                      
-                                      
+                                      Text(
+                                        medicine.description,
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.04,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(right: 10),
+                                            height: height * 0.07,
+                                            child: ElevatedButton.icon(
+                                              onPressed: () {},
+                                              icon: Icon(Icons
+                                                  .production_quantity_limits_outlined),
+                                              label: Text("Add to Cart"),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: kPrimaryColor,
+                                                textStyle:
+                                                    TextStyle(fontSize: 15),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.04,
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),

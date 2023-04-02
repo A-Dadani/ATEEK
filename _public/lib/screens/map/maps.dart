@@ -27,7 +27,7 @@ class _MapScreenState extends State<MapScreen> {
   Future<List<PharmacyData>> _retPharmaciesList() async {
     final response = await http.get(
       Uri.parse(
-          'localhost:5000/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
+          'http://localhost:5000/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
     );
     pharmacyMarker = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(devicePixelRatio: 2.5),
@@ -156,7 +156,6 @@ class _MapScreenState extends State<MapScreen> {
             child: Icon(Icons.my_location),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-                  
         ),
       ],
     );

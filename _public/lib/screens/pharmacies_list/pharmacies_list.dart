@@ -21,7 +21,7 @@ class _PharmaciesState extends State<Pharmacies> {
   Future<List<PharmacyData>> _retPharmaciesList() async {
     final response = await http.get(
       Uri.parse(
-          'localhost:5000/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
+          'http://localhost:5000/api/v0/pharmacies/getByCity/${widget.selectedCity}'),
     );
     if (response.statusCode == 200) {
       try {
@@ -51,7 +51,10 @@ class _PharmaciesState extends State<Pharmacies> {
   Widget build(BuildContext context) {
     print("BUILDING WIDGET");
     return SidebarContainer(
-      title: RichText(text: TextSpan(text:'Nearby Pharmacies', style: TextStyle(fontSize: 30, color: kDarkBlackColor))),
+      title: RichText(
+          text: TextSpan(
+              text: 'Nearby Pharmacies',
+              style: TextStyle(fontSize: 30, color: kDarkBlackColor))),
       child: FutureBuilder(
         future: _retPharmaciesList(),
         builder:
