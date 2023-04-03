@@ -433,16 +433,17 @@ class _HomeScreenState extends State<HomeScreen>
                               // Wrap the second SlideTransition with Opacity
                               opacity: _opacity,
                               child: Expanded(
+                                  flex: 2,
                                   child: SizedBox(
-                                      width: width / 4,
+                                      width: width / 5,
                                       child: Pharmacies(
                                         selectedCity: cityValue,
                                       ))),
                             )
                           : SizedBox(
                               child: Image.asset('assets/images/Home_pic.png'),
-                              width: width / 2.7,
-                              height: height / 1.1),
+                              width: width / 4,
+                              height: height / 2),
                     ],
                   ),
                 ),
