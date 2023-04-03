@@ -351,16 +351,19 @@ class _HomeScreenState extends State<HomeScreen>
                                                                     null)
                                                                   Column(
                                                                     children: [
+                                                                      SizedBox(
+                                                                          height:
+                                                                              height * 0.02),
                                                                       Text(
                                                                           'Latitude: ${_latLong['latitude']}'),
                                                                       Text(
                                                                           'Longitude: ${_latLong['longitude']}'),
                                                                       SizedBox(
                                                                           height:
-                                                                              20),
+                                                                              height * 0.02),
                                                                       Container(
-                                                                          height:
-                                                                              350,
+                                                                          height: height *
+                                                                              0.6,
                                                                           child:
                                                                               MapScreen(
                                                                             selectedCity:
@@ -368,37 +371,37 @@ class _HomeScreenState extends State<HomeScreen>
                                                                             latLong:
                                                                                 _latLong,
                                                                           )),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              height * 0.02),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            100,
+                                                                        height:
+                                                                            50,
+                                                                        child:
+                                                                            Scaffold(
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          floatingActionButton:
+                                                                              FloatingActionButton.large(
+                                                                            onPressed: () =>
+                                                                                buttonCarouselController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.linear),
+                                                                            backgroundColor:
+                                                                                kPrimaryColor,
+                                                                            //shape: BeveledRectangleBorder(),
+                                                                            child:
+                                                                                Icon(Icons.refresh_outlined),
+                                                                          ),
+                                                                          floatingActionButtonLocation:
+                                                                              FloatingActionButtonLocation.centerDocked,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              height * 0.02),
                                                                     ],
                                                                   ),
-                                                                SizedBox(
-                                                                  width: 100,
-                                                                  height: 50,
-                                                                  child:
-                                                                      Scaffold(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    floatingActionButton:
-                                                                        FloatingActionButton
-                                                                            .large(
-                                                                      onPressed: () => buttonCarouselController.previousPage(
-                                                                          duration: Duration(
-                                                                              milliseconds:
-                                                                                  300),
-                                                                          curve:
-                                                                              Curves.linear),
-                                                                      backgroundColor:
-                                                                          kPrimaryColor,
-                                                                      //shape: BeveledRectangleBorder(),
-                                                                      child: Icon(
-                                                                          Icons
-                                                                              .refresh_outlined),
-                                                                    ),
-                                                                    floatingActionButtonLocation:
-                                                                        FloatingActionButtonLocation
-                                                                            .centerDocked,
-                                                                  ),
-                                                                ),
                                                               ],
                                                             )
                                                           : Container(),
