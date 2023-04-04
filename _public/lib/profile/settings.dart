@@ -294,12 +294,12 @@ class _ProfileState extends State<Profile> {
                               backgroundColor:
                                   MaterialStateProperty.all(kPrimaryColor),
                             ),
-                            onPressed: () {
-                              setState(() async {
-                                await createAlbum(
-                                    newFirstNameController.text.toString(),
-                                    newLastNameController.text.toString(),
-                                    newPasswordController.text.toString());
+                            onPressed: () async {
+                              await createAlbum(
+                                  newFirstNameController.text.toString(),
+                                  newLastNameController.text.toString(),
+                                  newPasswordController.text.toString());
+                              setState(() {
                                 newFirstNameController.clear();
                                 newLastNameController.clear();
                                 newPasswordController.clear();

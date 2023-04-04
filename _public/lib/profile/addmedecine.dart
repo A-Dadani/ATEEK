@@ -370,9 +370,9 @@ class _AddMedecineState extends State<AddMedecine> {
                                         color: kLabelColor,
                                         width: 1.5,
                                         style: BorderStyle.solid))),
-                                onPressed: () {
-                                  setState(() async {
-                                    fileInfo = await _selectFile();
+                                onPressed: () async {
+                                  fileInfo = await _selectFile();
+                                  setState(() {
                                     //Indicate that file has been uploaded
                                   });
                                 },
@@ -403,14 +403,14 @@ class _AddMedecineState extends State<AddMedecine> {
                               backgroundColor:
                                   MaterialStateProperty.all(kPrimaryColor),
                             ),
-                            onPressed: () {
-                              setState(() async {
-                                await createAlbum(
-                                    nameController.text.toString(),
-                                    qtyController.text.toString(),
-                                    descriptionController.text.toString(),
-                                    priceDHController.text.toString(),
-                                    fileInfo);
+                            onPressed: () async {
+                              await createAlbum(
+                                  nameController.text.toString(),
+                                  qtyController.text.toString(),
+                                  descriptionController.text.toString(),
+                                  priceDHController.text.toString(),
+                                  fileInfo);
+                              setState(() {
                                 nameController.clear();
                                 qtyController.clear();
                                 descriptionController.clear();

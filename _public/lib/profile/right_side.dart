@@ -429,24 +429,17 @@ class RrightSideState extends State<RightSide> {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    height: 200,
-                                    margin: const EdgeInsets.only(
-                                      top: 10,
-                                      left: 10,
-                                      right: 10,
-                                      bottom: 0,
-                                    ),
-                                    child: ImageNetwork(
-                                      image: medicine.pictureLink,
-                                      height: height * 0.25,
-                                      width: width * 0.25,
-                                      fitWeb: BoxFitWeb.fill,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(24)),
-                                    ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ImageNetwork(
+                                        image: medicine.pictureLink,
+                                        height: 186,
+                                        width: 316,
+                                        fitWeb: BoxFitWeb.contain,
+                                      ),
+                                      // SizedBox(width: width * 0.08),
+                                    ],
                                   ),
                                   Container(
                                     alignment: Alignment.centerLeft,

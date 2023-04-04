@@ -55,7 +55,7 @@ const patchOne = async (req, res) => {
     if (newFirstName) {
         const userSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacists", id));
         fireAdmin.updateUser(id, {
-            displayName: (newFirstName + userSnapshot.data().lastName)
+            displayName: (newFirstName + ' ' + userSnapshot.data().lastName)
         });
         await firestoreClientLib.updateDoc(firestoreClientLib.doc(db, "pharmacists", id), {
             firstName: newFirstName
@@ -64,7 +64,7 @@ const patchOne = async (req, res) => {
     if (newLastName) {
         const userSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacists", id));
         fireAdmin.updateUser(id, {
-            displayName: (userSnapshot.data().firstName + newLastName)
+            displayName: (userSnapshot.data().firstName + ' ' + newLastName)
         });
         await firestoreClientLib.updateDoc(firestoreClientLib.doc(db, "pharmacists", id), {
             lastName: newLastName

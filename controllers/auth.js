@@ -206,6 +206,7 @@ const signOutUser = async (req, res) => {
 
 const getAuthStatus = async (req, res) => {
     const sessionCookie = req.cookies.session;
+    const db = firestoreClientLib.getFirestore(firebase);
     if (!sessionCookie) {
         return res.status(httpStatus.StatusCodes.OK).json({isSignedIn: false, msg: "No user is signed in."});
     }
@@ -213,9 +214,11 @@ const getAuthStatus = async (req, res) => {
     const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
     try {
         const decodedClaims = await fireAdmin.verifySessionCookie(sessionCookie, true);
+        const userSnapshot = await firestoreClientLib.getDoc(firestoreClientLib.doc(db, "pharmacists", decodedClaims.user_id));
+        const DName = userSnapshot.data().firstName + ' ' + userSnapshot.data().lastName;
         res.status(httpStatus.StatusCodes.OK).json({isSignedIn: true, 
                                                     uid: decodedClaims.user_id,
-                                                    displayName: decodedClaims.name,
+                                                    displayName: DName,
                                                     email: decodedClaims.email});
     } catch {
         res.status(httpStatus.StatusCodes.UNAUTHORIZED).json({isSignedIn: false, msg: "Invalid session cookie"});

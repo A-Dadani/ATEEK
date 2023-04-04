@@ -359,11 +359,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                       ),
                                     ),
-                                    onPressed: () {
-                                      setState(() async {
-                                        await createAlbum(
-                                            emailController.text.toString(),
-                                            passwordController.text.toString());
+                                    onPressed: () async {
+                                      await createAlbum(
+                                          emailController.text.toString(),
+                                          passwordController.text.toString());
+                                      setState(() {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
