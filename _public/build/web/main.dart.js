@@ -93002,20 +93002,19 @@ s.b=!0
 s.a.push(new A.azQ(r))},
 k(){this.z.k()
 this.a4M()},
-J(a){var s,r,q,p,o,n=this,m=null,l=t.w,k=a.u(l).f.a.b,j=a.u(l).f.a.a,i=t.t,h=A.a([],i)
-if(!(a.u(l).f.a.a<650))h.push(A.Q(m,m,j*0.04))
-if(!(a.u(l).f.a.a<650)){s=n.ax
+J(a){var s,r,q,p,o=this,n=null,m=t.w,l=a.u(m).f.a.b,k=a.u(m).f.a.a,j=t.t,i=A.a([],j)
+if(!(a.u(m).f.a.a<650))i.push(A.Q(n,n,k*0.04))
+if(!(a.u(m).f.a.a<650)){s=o.ax
 r=A.ad(s).i("a4<1,dl*>")
-q=k/1.1
-r=A.Q(A.bd(A.a([A.a6d(n.as,A.ao(new A.a4(s,new A.azN(n,k,j),r),!0,r.i("ba.E")),A.a6c(1.7777777777777777,!1,B.is,B.ax,!1,!0,q,0,new A.Dg(m),1))],i),B.n,B.o,B.m),m,j/2.5)
-s=n.cx
-p=s===1
-o=p?A.Q(m,m,j*0.1):A.Q(m,m,j*0.04)
-h.push(A.bj(A.bd(A.a([A.cA(A.bT(A.a([r,o,p?A.QY(A.bj(A.Q(new A.rF(n.w,m),m,j/4),1),s):A.Q(A.jJ("assets/images/Home_pic.png",m,m,m),q,j/2.7)],i),B.n,B.o,B.m),m,m)],i),B.n,B.o,B.m),1))}if(a.u(l).f.a.a<650){l=n.ax
-s=A.ad(l).i("a4<1,dl*>")
-i=A.a([A.bd(A.a([A.a6d(n.as,A.ao(new A.a4(l,new A.azO(n,k,j),s),!0,s.i("ba.E")),A.a6c(1.7777777777777777,!1,B.is,B.ax,!1,!0,k,0,new A.Dg(m),1))],i),B.n,B.o,B.m),A.Q(m,5,m)],i)
-if(n.d)i.push(new A.rF(n.w,m))
-h.push(A.bj(A.bd(i,B.n,B.o,B.m),2))}return A.bT(h,B.bE,B.o,B.m)}}
+r=A.Q(A.bd(A.a([A.a6d(o.as,A.ao(new A.a4(s,new A.azN(o,l,k),r),!0,r.i("ba.E")),A.a6c(1.7777777777777777,!1,B.is,B.ax,!1,!0,l/1.1,0,new A.Dg(n),1))],j),B.n,B.o,B.m),n,k/2.5)
+s=o.cx
+q=s===1
+p=q?A.Q(n,n,k*0.1):A.Q(n,n,k*0.04)
+i.push(A.bj(A.bd(A.a([A.cA(A.bT(A.a([r,p,q?A.QY(A.bj(A.Q(new A.rF(o.w,n),n,k/5),2),s):A.Q(A.jJ("assets/images/Home_pic.png",n,n,n),l/2,k/4)],j),B.n,B.o,B.m),n,n)],j),B.n,B.o,B.m),1))}if(a.u(m).f.a.a<650){m=o.ax
+s=A.ad(m).i("a4<1,dl*>")
+j=A.a([A.bd(A.a([A.a6d(o.as,A.ao(new A.a4(m,new A.azO(o,l,k),s),!0,s.i("ba.E")),A.a6c(1.7777777777777777,!1,B.is,B.ax,!1,!0,l,0,new A.Dg(n),1))],j),B.n,B.o,B.m),A.Q(n,5,n)],j)
+if(o.d)j.push(new A.rF(o.w,n))
+i.push(A.bj(A.bd(j,B.n,B.o,B.m),2))}return A.bT(i,B.bE,B.o,B.m)}}
 A.azq.prototype={
 $0(){var s=this.b,r=J.ai(s)
 this.a.CW=A.S(["latitude",r.h(s,"lat"),"longitude",r.h(s,"lng")],t.l,t.z)},
@@ -93059,9 +93058,9 @@ i=o}else if(f==="2"){i=t.t
 f=A.a([],i)
 s=l.a
 r=s.CW
-if(r!=null)f.push(A.bd(A.a([A.b4("Latitude: "+A.d(r.h(0,"latitude")),k,k,k,k,k,k,k),A.b4("Longitude: "+A.d(s.CW.h(0,"longitude")),k,k,k,k,k,k,k),A.Q(k,20,k),A.aP(k,new A.ws(s.w,s.CW,k),B.f,k,k,k,k,350,k,k,k,k,k)],i),B.n,B.o,B.m))
-f.push(A.Q(A.j0(B.S,k,k,A.aOD(B.l,A.c1(B.pG,k,k),new A.azK(s)),B.CN,k),50,100))
-i=A.bd(f,B.n,B.o,B.m)}else i=A.aP(k,k,B.f,k,k,k,k,k,k,k,k,k,k)
+if(r!=null){q=l.c
+p=q*0.02
+f.push(A.bd(A.a([A.Q(k,p,k),A.b4("Latitude: "+A.d(r.h(0,"latitude")),k,k,k,k,k,k,k),A.b4("Longitude: "+A.d(s.CW.h(0,"longitude")),k,k,k,k,k,k,k),A.Q(k,p,k),A.aP(k,new A.ws(s.w,s.CW,k),B.f,k,k,k,k,q*0.6,k,k,k,k,k),A.Q(k,p,k),A.Q(A.j0(B.S,k,k,A.aOD(B.l,A.c1(B.pG,k,k),new A.azK(s)),B.CN,k),50,100),A.Q(k,p,k)],i),B.n,B.o,B.m))}i=A.bd(f,B.n,B.o,B.m)}else i=A.aP(k,k,B.f,k,k,k,k,k,k,k,k,k,k)
 f=t.t
 return A.cA(A.bd(A.a([A.aP(k,A.bd(A.a([A.bj(i,2)],f),B.n,B.o,B.m),B.f,k,k,new A.bO(B.j,k,k,j,k,k,B.Q),k,h.a.b/1.25,k,k,k,k,g.a.a/1.1)],f),B.n,B.o,B.m),k,k)},
 $S:176}

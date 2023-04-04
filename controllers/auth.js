@@ -91,7 +91,7 @@ const signupWithEmail = async (req, res) => {
     //---->Create session cookie
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
     const sessionCookie = await fireAdmin.createSessionCookie(response.data.idToken, {expiresIn});
-    const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+    const options = { maxAge: expiresIn, httpOnly: false, secure: false };
     res.cookie('session', sessionCookie, options);
     //-->Upload data to firestore
     //---->Pharmacy Data
@@ -140,6 +140,7 @@ const signupWithEmail = async (req, res) => {
 };
 
 const signinWithEmail = async (req, res) => {
+    origin = req.headers.origin;
     //Check if user is already signed in
     if (req.cookies && req.cookies.session) {
         throw new errors.BadRequestError("A user is already signed in.");
@@ -172,7 +173,15 @@ const signinWithEmail = async (req, res) => {
     const fireAdmin = firebaseAdmin.auth(firebaseAdmin);
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
     const sessionCookie = await fireAdmin.createSessionCookie(response.data.idToken, {expiresIn});
-    const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+    const options = { 
+        maxAge: expiresIn, 
+        httpOnly: false, 
+        secure: false, 
+        path: '/',
+        sameSite: "lax"
+    };
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', origin);
     res.cookie('session', sessionCookie, options);
 
     return res.status(httpStatus.StatusCodes.OK).send("User signed in successfully.");

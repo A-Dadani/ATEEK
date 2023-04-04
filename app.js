@@ -8,6 +8,7 @@ const server = express();
 
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
 
 const notFoundMiddleware = require("./middleware/not-found.js");
 const errorHandlerMiddleware = require("./middleware/error-handler.js");
@@ -29,7 +30,8 @@ server.use("/api/v0/auth", authRouter);
 server.use("/api/v0/pharmacies", pharmaciesRouter);
 server.use("/api/v0/pharmacists", pharmacistsRouter);
 server.use("/api/v0/products", productsRouter);
-server.use(express.static("./public"));
+server.use("/", express.static("./_public/build/web"));
+server.use("/.*/", express.static("./_public/build/web"));
 
 if (process.env.NODE_ENV === "production") {
     server.use(notFoundMiddleware);
