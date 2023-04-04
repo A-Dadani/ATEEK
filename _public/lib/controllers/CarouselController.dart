@@ -1695,10 +1695,20 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                                                           300),
                                                                   curve: Curves
                                                                       .linear),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              minimumSize: Size(
-                                                                  100, 50)),
+                                                      style: ButtonStyle(
+                                                        shape: MaterialStateProperty.all<
+                                                                RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      50.0),
+                                                        )),
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all(
+                                                                    kPrimaryColor),
+                                                      ),
                                                       child: Text('Next'),
                                                     ),
                                                     SizedBox(width: 12),
@@ -1719,10 +1729,19 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                                                           300),
                                                                   curve: Curves
                                                                       .linear),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            minimumSize:
-                                                                Size(100, 50),
+                                                          style: ButtonStyle(
+                                                            shape: MaterialStateProperty.all<
+                                                                    RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          50.0),
+                                                            )),
+                                                            backgroundColor:
+                                                                MaterialStateProperty
+                                                                    .all(
+                                                                        kPrimaryColor),
                                                           ),
                                                           child:
                                                               Text('Previous'),
@@ -1736,10 +1755,19 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                                             // context,
                                                             //  MaterialPageRoute(builder: (context) =>  LoginScreen()));
                                                           },
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            minimumSize:
-                                                                Size(100, 50),
+                                                          style: ButtonStyle(
+                                                            shape: MaterialStateProperty.all<
+                                                                    RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          50.0),
+                                                            )),
+                                                            backgroundColor:
+                                                                MaterialStateProperty
+                                                                    .all(
+                                                                        kPrimaryColor),
                                                           ),
                                                           child:
                                                               Text('Register'),
@@ -1757,11 +1785,20 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                                                           300),
                                                                   curve: Curves
                                                                       .linear),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  minimumSize:
-                                                                      Size(100,
-                                                                          50)),
+                                                          style: ButtonStyle(
+                                                            shape: MaterialStateProperty.all<
+                                                                    RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          50.0),
+                                                            )),
+                                                            backgroundColor:
+                                                                MaterialStateProperty
+                                                                    .all(
+                                                                        kPrimaryColor),
+                                                          ),
                                                           child:
                                                               Text('Previous'),
                                                         ),
@@ -1776,11 +1813,20 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                                                           300),
                                                                   curve: Curves
                                                                       .linear),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  minimumSize:
-                                                                      Size(100,
-                                                                          50)),
+                                                          style: ButtonStyle(
+                                                            shape: MaterialStateProperty.all<
+                                                                    RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          50.0),
+                                                            )),
+                                                            backgroundColor:
+                                                                MaterialStateProperty
+                                                                    .all(
+                                                                        kPrimaryColor),
+                                                          ),
                                                           child: Text('Next'),
                                                         ),
                                                       ],
