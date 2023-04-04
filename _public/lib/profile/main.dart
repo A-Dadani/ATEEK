@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     /* double height= MediaQuery.of(context).size.height;
     double width= MediaQuery.of(context).size.width; */
     return MaterialApp(
-      title: 'Instagram Redesign Web By Hmida71 🌟',
+      title: 'Profile - Ateek',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,
@@ -35,12 +35,10 @@ class _MyAppState extends State<MyApp> {
       ),
       home: LayoutBuilder(
         builder: (context, constraints) {
-          
-            return Scaffold(
-              body: Home(),
-            );
-          }
-        ,
+          return Scaffold(
+            body: Home(),
+          );
+        },
       ),
     );
   }
