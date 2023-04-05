@@ -38,7 +38,7 @@ Start the server
 npm start
 ```
 ***IMPORTANT!***:warning: <br/>
-Please make sure that the Node server is running on port 5000, the project will not work otherwise.<br/>
+Please make sure that the Node server is running on port 5000, the project will **<ins>not</ins>** work otherwise.<br/>
 If port 5000 is already taken kindly refer to this article on how to kill a task running on a port: [How to find and kill a process running on a port](https://community.talend.com/s/article/How-to-find-and-kill-a-process-running-on-a-port-LVJkZ?language=en_US).
 
 The server should now be up and listening to port 5000. <br/>
