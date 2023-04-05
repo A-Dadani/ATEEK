@@ -50,4 +50,7 @@ All done! To access the app all you need to do now is to open a new Chrome insta
 **FrontEnd:** Dart / Flutter<br/>
 
 ## Note
-The raw flutter code and the build are in the `_public` directory. [Install the flutter SDK](https://docs.flutter.dev/get-started/install) and feel free to browse edit or build the code!
+- The raw flutter code and the build are in the `_public` directory. [Install the flutter SDK](https://docs.flutter.dev/get-started/install) and feel free to browse edit or build the code!
+- Credentials for the test account are
+  - Email: `test3@gmail.com`
+  - Password: `S3crettt`
